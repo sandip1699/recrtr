@@ -1,0 +1,99 @@
+<app-header></app-header>
+
+<div class="applayout">
+  <div class="sidebarmain">
+    <form>
+      <div class="form-group">
+        <label>Compose :</label>
+        <select [(ngModel)]="composevalue" name="comse" class="form-control" (change)="selectCompose(composevalue)" placeholder="select">
+          <option *ngFor="let c of composes" [ngValue]="c">{{c.name}}</option>
+        </select>
+      </div>
+      <div class="form-group" *ngIf="compname == 'Email'">
+          <textarea class="form-control" [(ngModel)]="prompt" name="prompt" rows="8" placeholder="Write job Description..."></textarea>
+      </div>
+      <div class="form-group" *ngIf="compname === 'Job Description'">
+          <input class="form-control" [(ngModel)]="prompt" name="prompt" placeholder="Type Job Role" />
+      </div>
+      <div class="form-group" *ngIf="compname === 'LinkedIn InMail'">
+          <textarea class="form-control" [(ngModel)]="prompt" name="prompt" rows="8" placeholder="Write job Description"></textarea>
+      </div>
+      <div class="form-group" *ngIf="compname === 'SMS Text'">
+          <textarea class="form-control" [(ngModel)]="prompt" name="prompt" rows="8" placeholder="Write job Description"></textarea>
+      </div>
+      <div class="form-group" *ngIf="composevalue">
+        <button class="btn btn-primary" type="submit" (click)="test()"> Compose </button>
+      </div>
+    </form>  
+  </div>
+  <div class="ressultlayout">
+    <div class="loaderwraper" *ngIf="loader">
+      <div class="loader"></div>
+    </div>
+    <div class="resultineditor" *ngIf="newDocument">
+      <div class="doctitle">
+        <button class="savebtn" (click)="saveDocument()"><i class="fa fa-angle-left"></i></button>
+        <input type="text" class="titleonly" [(ngModel)]="doctitle" />
+      </div>
+      <div class="richeditor">
+        <angular-editor [(ngModel)]="generatedTexthtml" [config]="editorConfig"></angular-editor>
+      </div>
+    </div>
+    <div class="documentdetails" *ngIf="editoractive">
+      <div class="doctitle">
+        <button class="savebtn" (click)="updateDocuments(note)"><i class="fa fa-angle-left"></i></button>
+        <input type="text" class="titleonly" [(ngModel)]="docnamed" name="docnamed" />
+        <div class="optionsmenu">
+            <div class="dropdown">
+                <a (click)="toogleMenu=!toogleMenu"><i class="fa fa-ellipsis-v"></i></a>
+                <div class="dropdown-menu" [ngClass]="{show: toogleMenu}">
+                    <a href="javascript:void(0);">
+                      <i class="fa fa-download"></i>
+                      <span> Download (.docx) </span>
+                    </a>
+                    <a href="javascript:void(0);">
+                      <i class="fa fa-download"></i>
+                      <span> Download (.pdf) </span>
+                    </a>
+                    <a href="javascript:void(0);">
+                      <i class="fa fa-download"></i>
+                      <span> Download (.html) </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="richeditor">
+        <angular-editor [(ngModel)]="documenttexts" [config]="editorConfig"></angular-editor>
+      </div>
+    </div>
+    <div *ngIf="DocumentData && DocumentData.length > 0">
+    <div class="documentlist" *ngIf="!editoractive && !newDocument">
+      <div class="doctitle">
+        <span>Documents</span>
+        <a href="javascript:void(0);">New Document</a>
+      </div>
+      <div class="documentlist" >
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of DocumentData">
+                <td>{{item.doctitle}}</td>
+                <td>
+                  <a class="text-info mr-2" (click)="getdocumentDetails(item)">View</a>
+                  <a (click)="deleteDocumentfile(item)" class="text-danger">Delete</a>
+                </td>
+              </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  </div>
+</div>

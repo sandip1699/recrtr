@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "recruitryte-a1750": {
+      "hosting": {
+        "app-gpt": [
+          "recruitryte-a1750"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "recruitryte-a1750"
+  }
+}

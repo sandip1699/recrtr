@@ -1,0 +1,8 @@
+.main-header {padding: 10px 20px; box-shadow: 1px 1px 1px rgba(0,0,0,0.05);position: relative;background-color: #102658;}
+.profilemenu {border: 1px solid #ddd; border-radius: 25px;}
+ul {list-style: none; padding: 0; margin: 0;}
+.menubar ul {display: flex; align-items: center;}
+.menubar ul li { margin-left: 30px; }
+.navogations {display: flex; justify-content: space-between; align-items: center;}
+.creditoption span {padding-right: 15px;}
+.logo img {height: 31px;}

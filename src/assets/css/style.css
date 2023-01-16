@@ -1,0 +1,99 @@
+@font-face { font-family: 'proxima-nova'; src: url(../fonts/proxima-nova-regular.woff); font-weight: 400; }
+@font-face { font-family: 'proxima-nova'; src: url(../fonts/proxima-nova-semibold.woff); font-weight: 600; }
+@font-face { font-family: 'proxima-nova'; src: url(../fonts/proxima-nova-bold.woff); font-weight: 700; }
+html body { font-family: 'proxima-nova', sans-serif !important; color: #162027; font-size: 16px; line-height: 1.5; }
+input, textarea {font-family: inherit;}
+.text-center {text-align: center !important;}
+.text-primary {color: #0b65f8 !important;}
+.font14 {font-size: 14px !important;}
+.semi-bold { font-weight: 500 !important;}
+form {width: 100%;}
+body a:hover {cursor: pointer !important; text-decoration: none;}
+/* page layout */
+.applayout {display: flex; background-color: #F3F3F3;}
+.sidebarmain {flex: 0 0 auto; padding: 30px; width: 530px; background-color: #F5F7FD; height: calc(100vh - 60px); overflow: auto; }
+.ressultlayout {flex: 0 0 auto; padding:0px 30px; width: calc(100% - 530px); position: relative; background-color: #fff; height: calc(100vh - 60px); overflow: auto; }
+/* .richeditor {display: none;} */
+.richeditor.active {display: block;}
+.animatedtext.dnone {display: none;}
+.animatedtext {white-space: pre-wrap;}
+.editodiv {display: none;}
+.editbtn.dnone {display: none !important;}
+.doctitle .savebtn {
+  width: 30px;
+  border: none; font-size: 22px;
+  background: none;
+  cursor: pointer;
+  height: 30px; padding: 0px;
+}
+.doctitle .savebtn:hover { background-color: #ddd; }
+.doctitle {display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 30px;
+  border-bottom: 1px solid #ddd;
+  height: 45px;
+  margin-left: -30px;
+  margin-right: -30px;
+  margin-bottom: 30px;}
+.doctitle .titleonly {border: none;background-color: none;margin-right: auto;}
+.dropdown:focus .dropdown-menu {
+  display: flex;
+}
+.dropdown-menu {
+  right: 0;
+  left: inherit !important;
+  padding: 10px;
+  min-width: 200px !important;
+  flex-direction: column;
+}
+.dropdown-menu a {display: block; color: #000; padding: 6px 5px;}
+.loaderwraper {position: absolute; display: flex;
+  align-items: center;
+  justify-content: center; left: 0; right: 0; top: 0; bottom: 0; background-color: rgba(255,255,255,0.9);}
+.loader {
+  border: 5px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 5px solid #0b65f8;
+  width: 100px; margin: auto;
+  height: 100px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+/* login  */
+.logo-center img {height: 40px;}
+.formwrapper {width: 450px; padding: 30px; box-shadow: 1px 1px 10px rgba(0,0,0,0.12); background-color: #fff; border-radius: 5px;}
+.loginwrapper {display: flex; padding: 40px 0px; flex-direction: column; align-items: center; justify-content: center; overflow: auto; padding: 40px 0px; min-height: 100vh; 
+    background: transparent linear-gradient(180deg, #F3F5FD 0%, #E7EFFC 100%) 0% 0% no-repeat padding-box;
+    }
+.form-group {position: relative;}
+.forogt-password {position: absolute; right: 0; text-align: right;}
+.sociamediaoption ul {list-style: none; padding: 0; margin: 0; margin-top: 10px;}
+.sociamediaoption ul li img {width: 35px;}
+.sociamediaoption ul li a {display: flex; cursor: pointer; align-items: center; color: #000; border-radius: 50%; background-color: #fff; margin-right: 15px; }
+.sociamediaoption ul li a span {padding-left: 7px;}
+.sociamediaoption ul li:last-child a {margin-right: 0px;}
+.oroption {border-top: 1px solid #ddd; position: relative; margin: 30px 0px;}
+.oroption span {position: absolute;
+    width: 45px;
+    height: 20px;
+    background-color: #fff;
+    bottom: -8px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;}
+.alreadyaccount {text-align: center;}
+
+

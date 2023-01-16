@@ -26,11 +26,11 @@ import { provideDatabase,getDatabase } from '@angular/fire/database';
     BrowserModule,
     AppRoutingModule, AngularEditorModule,
     HttpClientModule, FormsModule, AngularFireModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireModule.initializeApp(environment.firebase),
     BrowserAnimationsModule, MaterialModule, ReactiveFormsModule, provideAuth(() => getAuth()), provideDatabase(() => getDatabase())
   ],
   providers: [
-    { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig }
+    // { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig }
   ],
   bootstrap: [AppComponent]
 })

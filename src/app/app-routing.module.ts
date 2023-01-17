@@ -9,7 +9,7 @@ import { AngularFireAuthGuard } from '@angular/fire/compat/auth-guard';
 
 const routes: Routes = [ 
   
-  { path: '', redirectTo: 'assistant', pathMatch: 'full' },
+  { path: '', redirectTo: 'signup', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'verify-email', component: VerifyEmailComponent },

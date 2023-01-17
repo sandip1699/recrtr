@@ -10,10 +10,13 @@
                 <nav>
                     <ul>
                         <li>
-                            <span>Account</span>
-                        </li>   
-                        <li>
-                           <a class="text-white" (click)="logout()">Log out</a> 
+                            <button mat-icon-button [matMenuTriggerFor]="menu" class="text-white fa-4x">
+                                <mat-icon>account_circle</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu"  xPosition="before">
+                            <button mat-menu-item>Settings</button>
+                            <button (click)="logout()" mat-menu-item>Logout</button>
+                            </mat-menu>   
                         </li>
                     </ul>
                 </nav>

@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from "@angular/forms";
+import {MatSnackBar} from '@angular/material/snack-bar';
 import { Document } from '../model/document';
 import {DocumentService} from '../services/document.service';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
@@ -51,6 +52,21 @@ export class AssistantComponent implements OnInit {
   doctitle : any;
   editorConfig: AngularEditorConfig = {
     editable: true,
+    toolbarHiddenButtons: [
+      ['subscript','superscript'],
+      [
+        'textColor',
+        'backgroundColor',
+        'customClasses',
+        'link',
+        'unlink',
+        'insertImage',
+        'insertVideo',
+        'insertHorizontalRule',
+        'removeFormat',
+        'toggleEditorMode'
+      ]
+    ]
   }
   documentDetails: any;
   documenttexts: any;
@@ -58,10 +74,10 @@ export class AssistantComponent implements OnInit {
   refreshList: any;
   message : any;
   uid: any = localStorage.getItem('currentUser');
-  
+
   
 
-  constructor(private documentService:DocumentService, private authservice:AuthService) {}
+  constructor(private documentService:DocumentService, private authservice:AuthService, private snackBar: MatSnackBar) {}
  
   ngOnInit() {
     setTimeout(() => {
@@ -140,10 +156,10 @@ getAllDecoument(): void {
     this.DocumentData = data;
   });
 }
-deleteDocumentfile(note:Document) {
+deleteDocumentfile(key:string) {
   let decision = confirm("Are you sure want to delete this note ?");
   if(decision == true) {
-    this.documentService.deleteDocument(this.note.key)
+    this.documentService.deleteDocument(key)
         .then(() => {
           this.refreshList.emit();
         })
@@ -166,12 +182,19 @@ updateDocuments(note:any) {
     if (this.docObject) {
       this.documentService.updateDocument(this.note.key, this.docObject)
         .then(() => {
-          this.message = 'The tutorial was updated successfully!';
-          console.log('updated');
-              this.ducumentlisted = true;
+          this.snackBar.open('The Document was updated successfully!', 'close', {
+            duration: 3000
+          });
+          this.message = 'The Document was updated successfully!';
+            this.ducumentlisted = true;
             this.newDocument = false;
             this.editoractive = false;
         })
     }
 }
+
+downloadDoc(){
+  console.log('wokr');
+}
+
 }

@@ -19,12 +19,12 @@ export class DocumentService {
   userId: any;
   private dbPath = '/documents';
   documentsRef: AngularFireList<Document>;    // Reference to Student data list, its an Observable
-  documentsuser: AngularFireList<Document>;    // Reference to Student data list, its an Observable
+  // documentsuser: AngularFireList<Document>;    // Reference to Student data list, its an Observable
   // note: Observable<any[]>;   // Reference to Student object, its an Observable too
 
   constructor(private authService:AuthService, public db:AngularFireDatabase, private fireauth : AngularFireAuth,) {
-    this.documentsRef = db.list(this.dbPath);
-    this.documentsuser = db.list(this.dbPath, ref => ref.orderByChild('id').equalTo(this.uid));
+    this.documentsRef = db.list(this.dbPath, ref => ref.orderByChild('id').equalTo(this.uid));
+    // this.documentsuser = db.list(this.dbPath, ref => ref.orderByChild('id').equalTo(this.uid));
    }
 
   addDocment(documents:Document): any {
@@ -32,7 +32,7 @@ export class DocumentService {
     return this.documentsRef.push(documents);
   }
   getDocument(): AngularFireList<Document> {
-    return this.documentsuser;
+    return this.documentsRef;
   }
   updateDocument(key: string, value: any): Promise<void> {
     return this.documentsRef.update(key, value);

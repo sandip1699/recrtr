@@ -42,28 +42,22 @@
     <div class="documentdetails" *ngIf="editoractive">
       <div class="doctitle">
         <button class="savebtn" (click)="updateDocuments(note)"><i class="fa fa-angle-left"></i></button>
-        <input type="text" class="titleonly" [(ngModel)]="docnamed" name="docnamed" />
+        <div class="titleinput">
+          <input type="text" class="titleonly" [(ngModel)]="docnamed" name="docnamed" />
+          <i class="fa fa-edit"></i>
+        </div>
         <div class="optionsmenu">
-            <div class="dropdown">
-                <a (click)="toogleMenu=!toogleMenu"><i class="fa fa-ellipsis-v"></i></a>
-                <div class="dropdown-menu" [ngClass]="{show: toogleMenu}">
-                    <a href="javascript:void(0);">
-                      <i class="fa fa-download"></i>
-                      <span> Download (.docx) </span>
-                    </a>
-                    <a href="javascript:void(0);">
-                      <i class="fa fa-download"></i>
-                      <span> Download (.pdf) </span>
-                    </a>
-                    <a href="javascript:void(0);">
-                      <i class="fa fa-download"></i>
-                      <span> Download (.html) </span>
-                    </a>
-                </div>
-            </div>
+          <button mat-icon-button [matMenuTriggerFor]="exportmenu">
+              <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #exportmenu="matMenu" xPosition="before">
+            <button mat-menu-item (click)="downloadDoc()"><mat-icon>download</mat-icon> Download (.docx) </button>
+            <button mat-menu-item><mat-icon>download</mat-icon> Download (.pdf)</button>
+            <button mat-menu-item><mat-icon>download</mat-icon> Download (.html)</button>
+          </mat-menu>   
         </div>
       </div>
-      <div class="richeditor">
+      <div class="richeditor" id="mydownloadid">
         <angular-editor [(ngModel)]="documenttexts" [config]="editorConfig"></angular-editor>
       </div>
     </div>
@@ -86,7 +80,7 @@
                 <td>{{item.doctitle}}</td>
                 <td>
                   <a class="text-info mr-2" (click)="getdocumentDetails(item)">View</a>
-                  <a (click)="deleteDocumentfile(item)" class="text-danger">Delete</a>
+                  <a (click)="deleteDocumentfile(item.key)" class="text-danger">Delete</a>
                 </td>
               </tr>
             </tbody>

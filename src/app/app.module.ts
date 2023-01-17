@@ -14,7 +14,7 @@ import { SignupComponent } from './signup/signup.component';
 import { LoginComponent } from './login/login.component';
 import {AssistantComponent} from './assistant/assistant.component';
 import {VerifyEmailComponent} from './verify-email/verify-email.component';
-import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+// import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
 

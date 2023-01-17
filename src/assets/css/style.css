@@ -20,13 +20,15 @@ body a:hover {cursor: pointer !important; text-decoration: none;}
 .editodiv {display: none;}
 .editbtn.dnone {display: none !important;}
 .doctitle .savebtn {
-  width: 30px;
-  border: none; font-size: 22px;
+  width: 20px;
+  border: none;
+  font-size: 24px;
   background: none;
   cursor: pointer;
-  height: 30px; padding: 0px;
+  height: 33px;
+  padding: 0px;
+  text-align: left;
 }
-.doctitle .savebtn:hover { background-color: #ddd; }
 .doctitle {display: flex;
   align-items: center;
   justify-content: space-between;
@@ -34,9 +36,8 @@ body a:hover {cursor: pointer !important; text-decoration: none;}
   border-bottom: 1px solid #ddd;
   height: 45px;
   margin-left: -30px;
-  margin-right: -30px;
-  margin-bottom: 30px;}
-.doctitle .titleonly {border: none;background-color: none;margin-right: auto;}
+  margin-right: -30px;}
+.doctitle .titleonly {border: none;margin-right: auto;width: auto;}
 .dropdown:focus .dropdown-menu {
   display: flex;
 }
@@ -95,5 +96,20 @@ body a:hover {cursor: pointer !important; text-decoration: none;}
     margin: auto;
     text-align: center;}
 .alreadyaccount {text-align: center;}
-
+/* document page  */
+.richeditor .angular-editor-textarea {border: none !important; padding: 30px 3px !important; line-height: 1.6;}
+.richeditor .angular-editor-textarea:focus {outline: none;border: none;}
+.richeditor .angular-editor-toolbar {background-color: #fff !important;border: none !important;}
+.richeditor .angular-editor-toolbar-set button {border: none; background-color: #fff;margin-right: 6px;}
+.richeditor .angular-editor-toolbar {
+  padding: 10px 30px !important;
+  border-bottom: 1px solid #ddd !important;
+  margin-left: -30px;
+  margin-right: -30px;
+}
+.richeditor .angular-editor-toolbar .angular-editor-toolbar-set .angular-editor-button.active {
+  background: #cadcf6 !important;
+  border-color: #cadcf6 !important;
+  color: #3f5bfa;
+}
 

@@ -12,7 +12,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 // import {MatDialogModule} from '@angular/material/dialog';
 // import {MatSelectModule} from '@angular/material/select';
 import {MatOptionModule, MatRippleModule} from '@angular/material/core';
-// import {MatMenuModule} from '@angular/material/menu';
+import {MatMenuModule} from '@angular/material/menu';
 import {MatTooltipModule} from '@angular/material/tooltip';
 // import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatRadioModule} from '@angular/material/radio';
@@ -30,7 +30,7 @@ const data = [
   // MatDialogModule,
   // MatSelectModule,
   MatOptionModule,
-  // MatMenuModule,
+  MatMenuModule,
   MatTooltipModule,
   MatRippleModule,
   // MatProgressBarModule,

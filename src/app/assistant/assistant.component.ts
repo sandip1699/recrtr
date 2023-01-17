@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
-  FormGroup,
+  UntypedFormGroup,
   Validators,
 } from "@angular/forms";
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -20,7 +20,7 @@ import { map } from 'rxjs/operators';
 })
 export class AssistantComponent implements OnInit {
 
-  documentsFormm!: FormGroup;
+  documentsFormm!: UntypedFormGroup;
   docObject: Document = {
     id: '',
     doctitle: '',

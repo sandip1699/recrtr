@@ -1,4 +1,4 @@
-export interface Document {
+export interface Documents {
     id: string;
     doctitle : string;
     file : string;

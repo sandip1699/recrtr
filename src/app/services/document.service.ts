@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'; 
-import { Document } from '../model/document';
+import { Documents } from '../model/document';
 import { collection , query, where} from '@firebase/firestore';
 import { provideDatabase, ref, set} from '@angular/fire/database';
 import { map, Observable } from 'rxjs';
@@ -18,8 +18,8 @@ export class DocumentService {
   uid: any = localStorage.getItem('currentUser');
   userId: any;
   private dbPath = '/documents';
-  documentsRef: AngularFireList<Document>;    // Reference to Student data list, its an Observable
-  // documentsuser: AngularFireList<Document>;    // Reference to Student data list, its an Observable
+  documentsRef: AngularFireList<Documents>;    // Reference to Student data list, its an Observable
+  // documentsuser: AngularFireList<Documents>;    // Reference to Student data list, its an Observable
   // note: Observable<any[]>;   // Reference to Student object, its an Observable too
 
   constructor(private authService:AuthService, public db:AngularFireDatabase, private fireauth : AngularFireAuth,) {
@@ -27,11 +27,11 @@ export class DocumentService {
     // this.documentsuser = db.list(this.dbPath, ref => ref.orderByChild('id').equalTo(this.uid));
    }
 
-  addDocment(documents:Document): any {
+  addDocment(documents:Documents): any {
 
     return this.documentsRef.push(documents);
   }
-  getDocument(): AngularFireList<Document> {
+  getDocument(): AngularFireList<Documents> {
     return this.documentsRef;
   }
   updateDocument(key: string, value: any): Promise<void> {

@@ -1,16 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  UntypedFormGroup,
-  Validators,
-} from "@angular/forms";
 import {MatSnackBar} from '@angular/material/snack-bar';
-import { Document } from '../model/document';
+import { Documents } from '../model/document';
 import {DocumentService} from '../services/document.service';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { AuthService } from '../services/auth.service';
 import { map } from 'rxjs/operators';
+// import { ExportAsService, ExportAsConfig, SupportedExtensions } from 'ngx-export-as';
+// import { Document, Packer, Paragraph, TextRun } from 'docx';
+import { asBlob } from 'html-docx-js-typescript';
+import { saveAs } from 'file-saver';
 
 
 @Component({
@@ -20,8 +18,7 @@ import { map } from 'rxjs/operators';
 })
 export class AssistantComponent implements OnInit {
 
-  documentsFormm!: UntypedFormGroup;
-  docObject: Document = {
+  docObject: Documents = {
     id: '',
     doctitle: '',
     file: ''
@@ -48,6 +45,7 @@ export class AssistantComponent implements OnInit {
   ducumentlisted : boolean = false;
   toogleMenu : boolean = false;
   loader : boolean = false;
+  nocomposed : boolean = false;
   DocumentData : any;
   doctitle : any;
   editorConfig: AngularEditorConfig = {
@@ -74,6 +72,9 @@ export class AssistantComponent implements OnInit {
   refreshList: any;
   message : any;
   uid: any = localStorage.getItem('currentUser');
+  redata : string | undefined;
+  converted:any;
+  mywindow: any;
 
   
 
@@ -98,7 +99,6 @@ export class AssistantComponent implements OnInit {
     //  this.messageDiv = document.getElementById('genratedresult');
     this.loader = true;
     if(this.prompt) {
-      
       this.finalvalue = this.selectedcomvalue.inputvalue + ' ' + this.prompt;
       console.log('my input value is - ', this.finalvalue);
 
@@ -119,7 +119,9 @@ export class AssistantComponent implements OnInit {
         if (this.generatedText) {
           this.generatedTexthtml = this.generatedText.replace(/\n|\r|\r\n/g, "<br/>");
         }
+        this.nocomposed = false;
         this.loader = false;
+        this.docnamed = this.doctitle;
         this.newDocument = true;
       } else {
         const err = await response.text();
@@ -133,7 +135,7 @@ export class AssistantComponent implements OnInit {
   async saveDocument(){
   this.loader = true;
   this.docObject.id = this.uid,
-  this.docObject.doctitle = this.doctitle;
+  this.docObject.doctitle = this.docnamed;
   this.docObject.file = this.generatedTexthtml;
   this.documentService.addDocment(this.docObject).then((documents: any)=>{
     if(documents) {
@@ -141,10 +143,17 @@ export class AssistantComponent implements OnInit {
       this.ducumentlisted = true;
       this.newDocument = false;
       this.loader = false;
-    }`1`
+      this.snackBar.open('The Document was updated successfully!', 'close', {
+        duration: 3000
+      });
+    } else {
+      this.snackBar.open('document not saved', 'close', {
+        duration: 3000
+      });
+      this.loader = false;
+    }
   });
 }
- 
 getAllDecoument(): void {
   this.documentService.getDocument().snapshotChanges().pipe(
     map((changes: any[]) =>
@@ -154,6 +163,11 @@ getAllDecoument(): void {
     )
   ).subscribe(data => {
     this.DocumentData = data;
+    if(this.DocumentData.length === 0) {
+      this.nocomposed = true
+    } else {
+      this.nocomposed = false;
+    }
   });
 }
 deleteDocumentfile(key:string) {
@@ -170,15 +184,16 @@ getdocumentDetails(note:Document) {
   this.note = note;
   this.documentDetails = note;
   console.log(this.documentDetails.file);
-  this.documenttexts = this.documentDetails.file;
+  this.generatedTexthtml = this.documentDetails.file;
   this.docnamed = this.documentDetails.doctitle; 
   this.editoractive = true;
+  this.newDocument = true;
 }
 
 updateDocuments(note:any) {
     this.docObject.id = note.id,
     this.docObject.doctitle = this.docnamed;
-    this.docObject.file = this.documenttexts;
+    this.docObject.file = this.generatedTexthtml;
     if (this.docObject) {
       this.documentService.updateDocument(this.note.key, this.docObject)
         .then(() => {
@@ -193,8 +208,61 @@ updateDocuments(note:any) {
     }
 }
 
-downloadDoc(){
-  console.log('wokr');
+addnewDocument() {
+  this.newDocument = true;
+  this.ducumentlisted = false;
+  this.docnamed = "New Document"
+}
+
+// public download(): void {
+//  let newdoc =  this.documenttexts.replace(/<[^>]+>/g, '\n');
+//   const doc = new Document({
+//     sections: [
+//       {
+//           properties: {},
+//           children: [
+//               new Paragraph(newdoc),
+//           ],
+//       },
+//   ],
+//   });
+ 
+//   Packer.toBlob(doc).then((blob) => {
+//     console.log(doc);
+//     saveAs(blob, 'example.docx');
+//     console.log('Document created successfully');
+//   });
+// }
+
+// download() {
+//   asBlob(this.documenttexts).then(data => {
+//     saveAs(data, 'file.docx') // save as docx file
+//   }) // asBlob() return Promise<Blob|Buffer>
+// }
+async download() {
+  const text = this.generatedTexthtml;
+  this.converted = await asBlob(text, {
+    orientation: 'portrait',
+  });
+  saveAs(this.converted, 'document.docx');
+}
+async downloadTextFile() {
+  const textnew = this.generatedTexthtml.replace(/<[^>]+>/g, '\n');
+  var blob = new Blob([textnew], {
+     type: "text/plain;charset=utf-8",
+  });
+  saveAs(blob, "document.txt");
+}
+async downloadpdfFile() {
+        const pdftext = document.getElementById("divprint");
+        this.mywindow = window.open("", "PRINT", "height=700,width=900");
+        this.mywindow.document.write('<html><head><title>Download document</title><style>body{font-family: system-ui,-apple-system,"Segoe UI";line-height: 1.6;}.angular-editor-wrapper{padding: 30px;}.angular-editor-toolbar {display: none;}</style></head><body>');
+         this.mywindow.document.write(pdftext?.innerHTML);
+         this.mywindow.document.write('</body></html>');
+         this.mywindow.document.close();
+         this.mywindow.focus();
+         this.mywindow.print();
+         return true;
 }
 
 }

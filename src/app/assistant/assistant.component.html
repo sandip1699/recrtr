@@ -30,16 +30,34 @@
     <div class="loaderwraper" *ngIf="loader">
       <div class="loader"></div>
     </div>
+    <div *ngIf="nocomposed" class="no-generation"><img src="assets/images/no-results.png" alt="no result">
+      <h2 class="mt-2">No Compose any Document</h2>
+      <p>Select Compose option and fill up form and click on Compose button in left side panel</p>
+    </div>
     <div class="resultineditor" *ngIf="newDocument">
       <div class="doctitle">
-        <button class="savebtn" (click)="saveDocument()"><i class="fa fa-angle-left"></i></button>
-        <input type="text" class="titleonly" [(ngModel)]="doctitle" />
+        <button *ngIf="!editoractive" class="savebtn" (click)="saveDocument()"><i class="fa fa-angle-left"></i></button>
+        <button *ngIf="editoractive" class="savebtn" (click)="updateDocuments(note)"><i class="fa fa-angle-left"></i></button>
+        <div class="titleinput">
+          <input type="text" class="titleonly" [(ngModel)]="docnamed" name="docnamed" />
+          <i class="fa fa-edit"></i>
+        </div>
+        <div class="optionsmenu">
+          <button mat-icon-button [matMenuTriggerFor]="exportmenu">
+              <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #exportmenu="matMenu" xPosition="before">
+            <button mat-menu-item (click)="download()"><mat-icon>download</mat-icon>Download (.docx) </button>
+            <button mat-menu-item (click)="downloadpdfFile()"><mat-icon>download</mat-icon>Download (.pdf)</button>
+            <button mat-menu-item (click)="downloadTextFile()"><mat-icon>download</mat-icon>Download (.txt)</button>
+          </mat-menu>   
+        </div>
       </div>
-      <div class="richeditor">
+      <div class="richeditor" id="divprint">
         <angular-editor [(ngModel)]="generatedTexthtml" [config]="editorConfig"></angular-editor>
       </div>
     </div>
-    <div class="documentdetails" *ngIf="editoractive">
+    <!-- <div class="documentdetails" *ngIf="editoractive">
       <div class="doctitle">
         <button class="savebtn" (click)="updateDocuments(note)"><i class="fa fa-angle-left"></i></button>
         <div class="titleinput">
@@ -51,23 +69,23 @@
               <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #exportmenu="matMenu" xPosition="before">
-            <button mat-menu-item (click)="downloadDoc()"><mat-icon>download</mat-icon> Download (.docx) </button>
-            <button mat-menu-item><mat-icon>download</mat-icon> Download (.pdf)</button>
-            <button mat-menu-item><mat-icon>download</mat-icon> Download (.html)</button>
+            <button mat-menu-item (click)="download()"><mat-icon>download</mat-icon> Download (.docx) </button>
+            <button mat-menu-item (click)="downloadpdfFile()"><mat-icon>download</mat-icon> Download (.pdf)</button>
+            <button mat-menu-item (click)="downloadTextFile()"><mat-icon>download</mat-icon> Download (.txt)</button>
           </mat-menu>   
         </div>
       </div>
-      <div class="richeditor" id="mydownloadid">
+      <div class="richeditor" id="divprint">
         <angular-editor [(ngModel)]="documenttexts" [config]="editorConfig"></angular-editor>
       </div>
-    </div>
+    </div> -->
     <div *ngIf="DocumentData && DocumentData.length > 0">
     <div class="documentlist" *ngIf="!editoractive && !newDocument">
       <div class="doctitle">
         <span>Documents</span>
-        <a href="javascript:void(0);">New Document</a>
+        <a (click)="addnewDocument()">New Document</a>
       </div>
-      <div class="documentlist" >
+      <div class="documentlist mt-4">
         <table class="table table-bordered">
             <thead>
               <tr>

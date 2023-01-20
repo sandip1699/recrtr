@@ -21,7 +21,8 @@ export class AssistantComponent implements OnInit {
   docObject: Documents = {
     id: '',
     doctitle: '',
-    file: ''
+    file: '',
+    time:'',
   }
   generatedText: any;
   prompt: any;
@@ -95,6 +96,8 @@ export class AssistantComponent implements OnInit {
      console.log(this.compname);
   }
 
+
+
   async test() {
     //  this.messageDiv = document.getElementById('genratedresult');
     this.loader = true;
@@ -102,7 +105,7 @@ export class AssistantComponent implements OnInit {
       this.finalvalue = this.selectedcomvalue.inputvalue + ' ' + this.prompt;
       console.log('my input value is - ', this.finalvalue);
 
-      const response = await fetch('http://localhost:3000/', {
+      const response = await fetch('https://us-central1-recruitryte-a1750.cloudfunctions.net/generateText', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -137,6 +140,7 @@ export class AssistantComponent implements OnInit {
   this.docObject.id = this.uid,
   this.docObject.doctitle = this.docnamed;
   this.docObject.file = this.generatedTexthtml;
+  this.docObject.time = document.lastModified;
   this.documentService.addDocment(this.docObject).then((documents: any)=>{
     if(documents) {
       console.log(documents);
@@ -194,6 +198,7 @@ updateDocuments(note:any) {
     this.docObject.id = note.id,
     this.docObject.doctitle = this.docnamed;
     this.docObject.file = this.generatedTexthtml;
+    this.docObject.time = document.lastModified;
     if (this.docObject) {
       this.documentService.updateDocument(this.note.key, this.docObject)
         .then(() => {
@@ -211,7 +216,8 @@ updateDocuments(note:any) {
 addnewDocument() {
   this.newDocument = true;
   this.ducumentlisted = false;
-  this.docnamed = "New Document"
+  this.docnamed = "New Document";
+  this.generatedTexthtml = '';
 }
 
 // public download(): void {

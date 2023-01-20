@@ -122,3 +122,16 @@ body h2, body h2 {font-weight: 600;}
   padding: 30px;
   text-align: center;
 }
+.with-icon {display: inline-flex; align-items: center;}
+.with-icon .mat-icon {margin-right: 7px;}
+.documentlist tr td, .documentlist td th {vertical-align: middle;}
+@media (max-width:992px) {
+  .sidebarmain {width: 50%; }
+  .ressultlayout { width: 50%;}
+}
+@media (max-width:767px) {
+  .applayout {flex-wrap: wrap;}
+  .sidebarmain {width: 100%; height: auto; }
+  .ressultlayout { width: 100%; height: auto;}
+  .formwrapper {max-width: 90%;}
+}

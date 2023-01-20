@@ -83,22 +83,28 @@
     <div class="documentlist" *ngIf="!editoractive && !newDocument">
       <div class="doctitle">
         <span>Documents</span>
-        <a (click)="addnewDocument()">New Document</a>
+        <a (click)="addnewDocument()" class="with-icon"><mat-icon>description</mat-icon> New Document</a>
       </div>
       <div class="documentlist mt-4">
-        <table class="table table-bordered">
+        <table class="table">
             <thead>
               <tr>
-                <th>Name</th>
+                <th style="width: 60%;">Name</th>
+                <th>Modified</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let item of DocumentData">
-                <td>{{item.doctitle}}</td>
+                <td><a (click)="getdocumentDetails(item)"><div class="with-icon"><mat-icon>description</mat-icon> {{item.doctitle}}</div></a></td>
+                <td>{{item.time}}</td>
                 <td>
-                  <a class="text-info mr-2" (click)="getdocumentDetails(item)">View</a>
-                  <a (click)="deleteDocumentfile(item.key)" class="text-danger">Delete</a>
+                  <a class="text-dark mr-2 with-icon" (click)="getdocumentDetails(item)">
+                    <mat-icon>visibility</mat-icon>
+                  </a>
+                  <a (click)="deleteDocumentfile(item.key)" class="text-danger with-icon">
+                    <mat-icon>delete</mat-icon>
+                  </a>
                 </td>
               </tr>
             </tbody>

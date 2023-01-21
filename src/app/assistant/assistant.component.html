@@ -1,4 +1,4 @@
-<app-header></app-header>
+<app-header [creditleft]="countclick"></app-header>
 
 <div class="applayout">
   <div class="sidebarmain">
@@ -24,6 +24,7 @@
       <div class="form-group" *ngIf="composevalue">
         <button class="btn btn-primary" type="submit" (click)="test()"> Compose </button>
       </div>
+      <button (click)="updateuserdetsils()">update</button>
     </form>  
   </div>
   <div class="ressultlayout">

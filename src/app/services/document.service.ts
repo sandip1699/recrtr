@@ -17,7 +17,7 @@ export class DocumentService {
 
   uid: any = localStorage.getItem('currentUser');
   userId: any;
-  private dbPath = '/documents';
+  private dbPath = 'documents';
   documentsRef: AngularFireList<Documents>;    // Reference to Student data list, its an Observable
   // documentsuser: AngularFireList<Documents>;    // Reference to Student data list, its an Observable
   // note: Observable<any[]>;   // Reference to Student object, its an Observable too
@@ -25,10 +25,10 @@ export class DocumentService {
   constructor(private authService:AuthService, public db:AngularFireDatabase, private fireauth : AngularFireAuth,) {
     this.documentsRef = db.list(this.dbPath, ref => ref.orderByChild('id').equalTo(this.uid));
     // this.documentsuser = db.list(this.dbPath, ref => ref.orderByChild('id').equalTo(this.uid));
+
    }
 
   addDocment(documents:Documents): any {
-
     return this.documentsRef.push(documents);
   }
   getDocument(): AngularFireList<Documents> {

@@ -37,6 +37,9 @@ export class SignupComponent implements OnInit {
     }
       // this.router.navigate(['writing-assistant']);
       this.authService.register(this.email, this.password);
+      // this.authService.writeUserData().then(() => {
+
+      //   });
     
   }
 

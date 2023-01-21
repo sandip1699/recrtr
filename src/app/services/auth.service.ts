@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
+import { getDatabase, ref, set } from '@angular/fire/database';
 // import { Firestore, collectionData, getFirestore, doc } from '@angular/fire/firestore';
 // import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 // import { GoogleAuthProvider, GithubAuthProvider, FacebookAuthProvider} from '@angular/fire/auth'
 import { Router } from '@angular/router';
 import { collection } from '@firebase/firestore';
 import { BehaviorSubject, Observable, of, switchMap } from 'rxjs';
+import { UsersList } from '../model/users';
 // import { switchMap } from 'rxjs/operators';
 // import 'rxjs/add/operator/switchMap';
 // import { switchMap, map, catchError } from 'rxjs/operators';
@@ -17,6 +20,7 @@ import { BehaviorSubject, Observable, of, switchMap } from 'rxjs';
 //   photoURL: string;
 //   displayName : string;
 // }
+// import { getDatabase, ref, set } from '@angular/fire/compat/database';
 
 @Injectable({
   providedIn: 'root'
@@ -26,15 +30,26 @@ export class AuthService {
   authState: any = null;
   userId : any;
   // user : Observable<User>
+  private dbPath = 'users';
+  usersRef: AngularFireList<UsersList>; 
  
   
-  constructor(private fireauth : AngularFireAuth, private router : Router) {
-    // this.fireauth.authState.subscribe(user => {
-    //   if(user) {
-    //     this.userId=user.uid;
-    //   } 
-    // });
+  constructor(private fireauth : AngularFireAuth, private router : Router,public db:AngularFireDatabase) {
+    this.fireauth.authState.subscribe(user => {
+      if(user) {
+        this.userId=user.uid;
+      } 
+    });
+    this.usersRef = db.list(this.dbPath);
   }
+  // writeUserData(userId:string, name:string, email:string, imageUrl:string) {
+  //   const db = getDatabase();
+  //   set(ref(db, 'users/' + userId), {
+  //     username: name,
+  //     email: email,
+  //     profile_picture : imageUrl
+  //   });
+  // }
   
   // login method
   login(email : string, password : string) {
@@ -43,7 +58,7 @@ export class AuthService {
         if(res.user?.emailVerified == true) {
           this.router.navigate(['assistant']);
           localStorage.setItem('currentUser', res.user?.uid);
-          this.userId = localStorage.getItem('currentUser');    
+          this.userId = localStorage.getItem('currentUser'); 
         } else {
           this.router.navigate(['/verify-email']);
         }
@@ -58,6 +73,13 @@ export class AuthService {
   register(email : string, password : string) {
     this.fireauth.createUserWithEmailAndPassword(email, password).then( res => {
       this.sendEmailForVarification(res.user);
+      // this.db.list(`users/${userCredential.user.uid}`).set({
+
+      this.usersRef.push({
+        email: email,
+        userid: res.user?.uid,
+        creditCount: 50
+      })
       this.router.navigate(['/login']);
     }, err => {
       alert(err.message);
@@ -99,6 +121,13 @@ get userData(): any {
       photoURL: this.authState.photoURL,
     }
   ];
+}
+
+getuserInfo(): AngularFireList<UsersList> {
+  return this.usersRef;
+}
+updateuserInfo(key: string, value: any): Promise<void> {
+  return this.usersRef.update(key, value);
 }
 
   // forgot password

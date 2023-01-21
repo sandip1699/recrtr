@@ -9,6 +9,9 @@ import { map } from 'rxjs/operators';
 // import { Document, Packer, Paragraph, TextRun } from 'docx';
 import { asBlob } from 'html-docx-js-typescript';
 import { saveAs } from 'file-saver';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { Observable } from 'rxjs/internal/Observable';
+import { UsersList } from '../model/users';
 
 
 @Component({
@@ -23,6 +26,11 @@ export class AssistantComponent implements OnInit {
     doctitle: '',
     file: '',
     time:'',
+  }
+  userObject: UsersList = {
+    creditCount: 0,
+    email: '',
+    userid: ''
   }
   generatedText: any;
   prompt: any;
@@ -76,16 +84,48 @@ export class AssistantComponent implements OnInit {
   redata : string | undefined;
   converted:any;
   mywindow: any;
-
+  countclick: any;
+  userData:any;
+  curentuserinfo: any;
+  curentkey:any
+  useremail: any;
+  useruid: any;
   
 
-  constructor(private documentService:DocumentService, private authservice:AuthService, private snackBar: MatSnackBar) {}
+  constructor(private documentService:DocumentService, private authservice:AuthService, private snackBar: MatSnackBar,db: AngularFireDatabase) {
+    
+  }
  
   ngOnInit() {
     setTimeout(() => {
       this.getAllDecoument();
     }, 100);
+    this.authservice.getuserInfo().snapshotChanges().pipe(
+      map((changes: any[]) =>
+        changes.map(c =>
+          ({ key: c.payload.key, ...c.payload.val() })
+        )
+      )
+    ).subscribe(data => {
+      this.userData = data;
+      this.curentuserinfo = [];
+      this.userData.forEach((item:any) =>{
+        if(item.userid == this.uid){
+          this.curentuserinfo.push(item);
+        }
+      });
+      this.curentuserinfo.map((a:UsersList) => {
+        this.curentkey = a;
+        this.countclick = a.creditCount;
+        this.useremail = a.email;
+        this.useruid = a.userid;
+      });
+      console.log(this.countclick);
+    });
+  
+  
   }
+  
   richtexteditor() {
     console.log('work');
   }
@@ -100,12 +140,14 @@ export class AssistantComponent implements OnInit {
 
   async test() {
     //  this.messageDiv = document.getElementById('genratedresult');
+    this.countclick--;
+    console.log(this.countclick);
     this.loader = true;
     if(this.prompt) {
       this.finalvalue = this.selectedcomvalue.inputvalue + ' ' + this.prompt;
       console.log('my input value is - ', this.finalvalue);
 
-      const response = await fetch('https://us-central1-recruitryte-a1750.cloudfunctions.net/generateText', {
+      const response = await fetch('https://us-central1-recruitryte-a1750.cloudfunctions.net/composeText', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -132,6 +174,7 @@ export class AssistantComponent implements OnInit {
       }
     } else {
       alert('please fill up form');
+      this.loader = false;
     }
   }
 
@@ -187,7 +230,6 @@ deleteDocumentfile(key:string) {
 getdocumentDetails(note:Document) {
   this.note = note;
   this.documentDetails = note;
-  console.log(this.documentDetails.file);
   this.generatedTexthtml = this.documentDetails.file;
   this.docnamed = this.documentDetails.doctitle; 
   this.editoractive = true;
@@ -211,6 +253,17 @@ updateDocuments(note:any) {
             this.editoractive = false;
         })
     }
+}
+updateuserdetsils() {
+  this.userObject.creditCount = this.countclick;
+  this.userObject.email = this.useremail;
+  this.userObject.userid = this.useruid;
+  if (this.userObject) {
+    this.authservice.updateuserInfo(this.curentkey.key, this.userObject)
+      .then(() => {
+          console.log('updated');
+        }) 
+  }
 }
 
 addnewDocument() {

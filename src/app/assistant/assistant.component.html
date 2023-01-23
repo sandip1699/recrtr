@@ -2,7 +2,7 @@
 
 <div class="applayout">
   <div class="sidebarmain">
-    <form>
+    <form *ngIf="!limitover">
       <div class="form-group">
         <label>Compose :</label>
         <select [(ngModel)]="composevalue" name="comse" class="form-control" (change)="selectCompose(composevalue)" placeholder="select">
@@ -22,10 +22,13 @@
           <textarea class="form-control" [(ngModel)]="prompt" name="prompt" rows="8" placeholder="Write job Description"></textarea>
       </div>
       <div class="form-group" *ngIf="composevalue">
-        <button class="btn btn-primary" type="submit" (click)="test()"> Compose </button>
+        <button class="btn btn-primary" type="submit" (click)="composeNow()"> Compose </button>
       </div>
-      <button (click)="updateuserdetsils()">update</button>
-    </form>  
+    </form> 
+    <div *ngIf="limitover">
+        <h3>Your Credits limit over</h3>
+        <button mat-raised-button color="primary" [routerLink]="['/account/credits']" routerLinkActive="router-link-active" >Upgrade Now</button>
+    </div>
   </div>
   <div class="ressultlayout">
     <div class="loaderwraper" *ngIf="loader">
@@ -43,7 +46,7 @@
           <input type="text" class="titleonly" [(ngModel)]="docnamed" name="docnamed" />
           <i class="fa fa-edit"></i>
         </div>
-        <div class="optionsmenu">
+        <div class="optionsmenu" *ngIf="!limitover">
           <button mat-icon-button [matMenuTriggerFor]="exportmenu">
               <mat-icon>more_vert</mat-icon>
           </button>
@@ -98,7 +101,7 @@
             <tbody>
               <tr *ngFor="let item of DocumentData">
                 <td><a (click)="getdocumentDetails(item)"><div class="with-icon"><mat-icon>description</mat-icon> {{item.doctitle}}</div></a></td>
-                <td>{{item.time}}</td>
+                <td><span class="text-muted">{{item.time}}</span></td>
                 <td>
                   <a class="text-dark mr-2 with-icon" (click)="getdocumentDetails(item)">
                     <mat-icon>visibility</mat-icon>

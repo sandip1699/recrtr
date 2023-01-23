@@ -1,26 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
-import { getDatabase, ref, set } from '@angular/fire/database';
-// import { Firestore, collectionData, getFirestore, doc } from '@angular/fire/firestore';
-// import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
-// import { GoogleAuthProvider, GithubAuthProvider, FacebookAuthProvider} from '@angular/fire/auth'
 import { Router } from '@angular/router';
-import { collection } from '@firebase/firestore';
-import { BehaviorSubject, Observable, of, switchMap } from 'rxjs';
 import { UsersList } from '../model/users';
-// import { switchMap } from 'rxjs/operators';
-// import 'rxjs/add/operator/switchMap';
-// import { switchMap, map, catchError } from 'rxjs/operators';
-// import { Observable } from 'rxjs';
-// import { signUp } from '../model/signup';
-// interface User {
-//   uid : string;
-//   email : string;
-//   photoURL: string;
-//   displayName : string;
-// }
-// import { getDatabase, ref, set } from '@angular/fire/compat/database';
 
 @Injectable({
   providedIn: 'root'
@@ -42,14 +24,6 @@ export class AuthService {
     });
     this.usersRef = db.list(this.dbPath);
   }
-  // writeUserData(userId:string, name:string, email:string, imageUrl:string) {
-  //   const db = getDatabase();
-  //   set(ref(db, 'users/' + userId), {
-  //     username: name,
-  //     email: email,
-  //     profile_picture : imageUrl
-  //   });
-  // }
   
   // login method
   login(email : string, password : string) {
@@ -78,7 +52,7 @@ export class AuthService {
       this.usersRef.push({
         email: email,
         userid: res.user?.uid,
-        creditCount: 50
+        creditCount: 5
       })
       this.router.navigate(['/login']);
     }, err => {

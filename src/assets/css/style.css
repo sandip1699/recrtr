@@ -9,7 +9,7 @@ input, textarea {font-family: inherit;}
 .semi-bold { font-weight: 500 !important;}
 form {width: 100%;}
 body a:hover {cursor: pointer !important; text-decoration: none;}
-body h2, body h2 {font-weight: 600;}
+body h1, body h2, body h3, body h4 {font-weight: 600;}
 /* page layout */
 .applayout {display: flex; background-color: #F3F3F3;}
 .sidebarmain {flex: 0 0 auto; padding: 30px; width: 530px; background-color: #F5F7FD; height: calc(100vh - 60px); overflow: auto; }
@@ -122,9 +122,16 @@ body h2, body h2 {font-weight: 600;}
   padding: 30px;
   text-align: center;
 }
+@media (min-width:992px) {
+  .loginwrapper .logo-center {position: absolute; left: 15px; top: 15px;}
+}
 .with-icon {display: inline-flex; align-items: center;}
 .with-icon .mat-icon {margin-right: 7px;}
-.documentlist tr td, .documentlist td th {vertical-align: middle;}
+.documentlist tr td, .documentlist td th {vertical-align: middle;padding: 5px 10px;}
+.documentlist td th {font-weight: 600;}
+.documentlist tr td {font-size: 15px;}
+.pagetitle {padding: 10px 15px;border-bottom: 1px solid #ddd;}
+.pageinside {padding:30px 15px;}
 @media (max-width:992px) {
   .sidebarmain {width: 50%; }
   .ressultlayout { width: 50%;}

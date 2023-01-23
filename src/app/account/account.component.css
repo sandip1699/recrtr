@@ -1,0 +1,6 @@
+.accountwrapper {display: flex;flex-wrap: wrap;}
+.sidebarmenu {background-color: #F5F7FD; width: 250px; height: calc(100vh - 60px); overflow: auto; }
+.mainwraper {background-color: #fff; width: calc(100% - 250px);height: calc(100vh - 60px); overflow: auto;}
+.sidebarmenu ul {list-style: none;padding: 15px;}
+.sidebarmenu ul li a {display: block;border-radius: 5px;color: #000; font-size: 17px; padding: 10px 20px;margin-bottom: 10px;}
+.sidebarmenu ul li a.router-link-active {background-color: #D9E4F8;}

@@ -17,10 +17,14 @@ import {VerifyEmailComponent} from './verify-email/verify-email.component';
 // import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
+import { AccountComponent } from './account/account.component';
+import { ProfileComponent } from './account/profile/profile.component';
+import { CreditsComponent } from './account/credits/credits.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
-    AppComponent,HeaderComponent, SignupComponent, LoginComponent, AssistantComponent, VerifyEmailComponent
+    AppComponent,HeaderComponent, SignupComponent, LoginComponent, AssistantComponent, VerifyEmailComponent,AccountComponent, ProfileComponent, HomeComponent, CreditsComponent
   ],
   imports: [
     BrowserModule,

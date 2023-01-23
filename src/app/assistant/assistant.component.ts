@@ -12,6 +12,8 @@ import { saveAs } from 'file-saver';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { Observable } from 'rxjs/internal/Observable';
 import { UsersList } from '../model/users';
+import { version } from 'process';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -53,6 +55,7 @@ export class AssistantComponent implements OnInit {
   newDocument : boolean = false;
   ducumentlisted : boolean = false;
   toogleMenu : boolean = false;
+  limitover : boolean = false;
   loader : boolean = false;
   nocomposed : boolean = false;
   DocumentData : any;
@@ -92,8 +95,7 @@ export class AssistantComponent implements OnInit {
   useruid: any;
   
 
-  constructor(private documentService:DocumentService, private authservice:AuthService, private snackBar: MatSnackBar,db: AngularFireDatabase) {
-    
+  constructor(private documentService:DocumentService, private authservice:AuthService, private snackBar: MatSnackBar,db: AngularFireDatabase,private router: Router) {
   }
  
   ngOnInit() {
@@ -119,11 +121,20 @@ export class AssistantComponent implements OnInit {
         this.countclick = a.creditCount;
         this.useremail = a.email;
         this.useruid = a.userid;
+        this.checkcount();
       });
-      console.log(this.countclick);
+      
     });
-  
-  
+    
+  }
+
+  checkcount() {
+    setTimeout(() => {
+      console.log('click value is',this.countclick);
+      if(this.countclick < 1) {
+        this.limitover=true;
+      }
+    }, 400);
   }
   
   richtexteditor() {
@@ -138,12 +149,11 @@ export class AssistantComponent implements OnInit {
 
 
 
-  async test() {
+  async composeNow() {
     //  this.messageDiv = document.getElementById('genratedresult');
-    this.countclick--;
-    console.log(this.countclick);
     this.loader = true;
     if(this.prompt) {
+      this.countclick--;
       this.finalvalue = this.selectedcomvalue.inputvalue + ' ' + this.prompt;
       console.log('my input value is - ', this.finalvalue);
 
@@ -168,6 +178,8 @@ export class AssistantComponent implements OnInit {
         this.loader = false;
         this.docnamed = this.doctitle;
         this.newDocument = true;
+        this.updateuserdetsils();
+        this.checkcount();
       } else {
         const err = await response.text();
         alert(err);
@@ -272,32 +284,6 @@ addnewDocument() {
   this.docnamed = "New Document";
   this.generatedTexthtml = '';
 }
-
-// public download(): void {
-//  let newdoc =  this.documenttexts.replace(/<[^>]+>/g, '\n');
-//   const doc = new Document({
-//     sections: [
-//       {
-//           properties: {},
-//           children: [
-//               new Paragraph(newdoc),
-//           ],
-//       },
-//   ],
-//   });
- 
-//   Packer.toBlob(doc).then((blob) => {
-//     console.log(doc);
-//     saveAs(blob, 'example.docx');
-//     console.log('Document created successfully');
-//   });
-// }
-
-// download() {
-//   asBlob(this.documenttexts).then(data => {
-//     saveAs(data, 'file.docx') // save as docx file
-//   }) // asBlob() return Promise<Blob|Buffer>
-// }
 async download() {
   const text = this.generatedTexthtml;
   this.converted = await asBlob(text, {

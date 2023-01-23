@@ -4,3 +4,4 @@
 .titleinput i {position: absolute; top: 5px; right: 0; color: #0b65f8; z-index: 0;}
 .titleinput .titleonly:focus + i {opacity: 0;}
 .optionsmenu > .mat-icon-button {background-color: #f5f5f5f5;}
+.documentlist table {box-shadow: 1px 1px 10px rgba(0,0,0,0.12);}

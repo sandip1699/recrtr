@@ -32,7 +32,8 @@ export class AssistantComponent implements OnInit {
   userObject: UsersList = {
     creditCount: 0,
     email: '',
-    userid: ''
+    userid: '',
+    plan:'',
   }
   generatedText: any;
   prompt: any;
@@ -93,6 +94,7 @@ export class AssistantComponent implements OnInit {
   curentkey:any
   useremail: any;
   useruid: any;
+  yourplan: any;
   
 
   constructor(private documentService:DocumentService, private authservice:AuthService, private snackBar: MatSnackBar,db: AngularFireDatabase,private router: Router) {
@@ -121,6 +123,7 @@ export class AssistantComponent implements OnInit {
         this.countclick = a.creditCount;
         this.useremail = a.email;
         this.useruid = a.userid;
+        this.yourplan = a.plan;
         this.checkcount();
       });
       
@@ -270,6 +273,7 @@ updateuserdetsils() {
   this.userObject.creditCount = this.countclick;
   this.userObject.email = this.useremail;
   this.userObject.userid = this.useruid;
+  this.userObject.plan = this.yourplan;
   if (this.userObject) {
     this.authservice.updateuserInfo(this.curentkey.key, this.userObject)
       .then(() => {

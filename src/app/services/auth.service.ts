@@ -1,7 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { UsersList } from '../model/users';
 
 @Injectable({
@@ -16,7 +18,7 @@ export class AuthService {
   usersRef: AngularFireList<UsersList>; 
  
   
-  constructor(private fireauth : AngularFireAuth, private router : Router,public db:AngularFireDatabase) {
+  constructor(private fireauth : AngularFireAuth, private router : Router,public db:AngularFireDatabase, private http:HttpClient) {
     this.fireauth.authState.subscribe(user => {
       if(user) {
         this.userId=user.uid;
@@ -52,7 +54,8 @@ export class AuthService {
       this.usersRef.push({
         email: email,
         userid: res.user?.uid,
-        creditCount: 5
+        creditCount: 5,
+        plan: "free"
       })
       this.router.navigate(['/login']);
     }, err => {
@@ -97,13 +100,6 @@ get userData(): any {
   ];
 }
 
-getuserInfo(): AngularFireList<UsersList> {
-  return this.usersRef;
-}
-updateuserInfo(key: string, value: any): Promise<void> {
-  return this.usersRef.update(key, value);
-}
-
   // forgot password
   forgotPassword(email : string) {
       this.fireauth.sendPasswordResetEmail(email).then(() => {
@@ -123,6 +119,22 @@ updateuserInfo(key: string, value: any): Promise<void> {
     })
   }
 
+  getuserInfo(): AngularFireList<UsersList> {
+    return this.usersRef;
+  }
+  updateuserInfo(key: string, value: any): Promise<void> {
+    return this.usersRef.update(key, value);
+  }
+
+  // processPayment(token:any, amount:any){
+  //   const payment = {token, amount}
+  //   return this.db.list(`users/payments/${this.userId}`).push(payment);
+  // }
+  makepayment(stripeToken:any): Observable<any> {
+    const url = "https://us-central1-recruitryte-a1750.cloudfunctions.net/composeText/checkout";
+    // const url = "http://localhost:3000/checkout";
+    return this.http.post<any>(url, {token:stripeToken});
+  }
 
   //sign in with google
   // googleSignIn() {

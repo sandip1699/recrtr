@@ -6,11 +6,12 @@
     <div class="progress mb-2">
         <div class="progress-bar" [style.width]="percenvalue + '%'" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
     </div>
-    <div>
+    <div class="mb-5">
         Credits used - <strong>{{countclick}}</strong>
     </div>
-    <h3 class="mt-5">Plan</h3>
-    <div class="pricingplan">
+    <div class="plan" *ngIf="!successpayment">
+    <h3>Plan</h3>
+    <div class="pricingplan" *ngIf="yourplan === 'free'">
         <div class="row">
             <div class="col-md-6">
                 <p>Active plan: Free</p>
@@ -30,7 +31,7 @@
                         </mat-radio-group>
                     </div>
                     <div class="form-group">
-                        <button mat-raised-button color="primary">Checkout</button>
+                        <button (click)="makePayment(plantypes.price)" mat-raised-button color="primary">Checkout</button>
                     </div>
                 </div>
             </div>
@@ -47,7 +48,16 @@
                 </div>
             </div>
         </div>
-        
+    </div>
+    </div>
+    <div *ngIf="successpayment">
+        <div class="alert alert-success">Your Payment is successfull </div>
+    </div>
+    <div *ngIf="yourplan === 'premium'">
+        <p>Your Active Plan - <strong>Premium</strong></p>
+    </div>
+    <div *ngIf="failurepayment">
+        <div class="alert alert-danger">Payment Error</div>
     </div>
 </div>
 

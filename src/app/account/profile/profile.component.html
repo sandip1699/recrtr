@@ -3,9 +3,61 @@
 </div>
 
 <div class="pageinside">
-    <h4>welcome <strong>{{useremail}}</strong> </h4>
-    
-    <div class="pricingplan">
-        <p>Active plan: Free</p>
+    <div class="row">
+        <div class="col-md-5 mr-auto">
+            <h4 class="title">Basic details</h4>
+            <form>
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" [(ngModel)]="username" placeholder="Enter your name" name="username" [value]="username" />
+                </div>
+                <div class="form-group">
+                    <label>Your Email Address</label>
+                    <input type="text" class="form-control" [(ngModel)]="useremail" name="useremail" [value]="useremail" disabled />
+                </div>
+                <div class="form-group pt-2">
+                    <button (click)="changeName(profileupdated)" mat-raised-button color="primary">Save Profile</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-5 ml-auto">
+            <h4 class="title">Plan</h4>
+            <div class="pricingplan">
+                <p>Active plan: <strong class="text-capitalize">{{plan}}</strong></p>
+                <p *ngIf="planexpry">Plan Expired on {{planexpry}}</p>
+                <div class="form-group" *ngIf="plan === 'free' ">
+                    <button [routerLink]="['/account/credits']" routerLinkActive="router-link-active"  mat-raised-button color="primary">Upgrade Plan</button>
+                </div>
+            </div>
+        </div>
     </div>
+    <div class="row">
+        <div class="col-md-5">
+            <h4 class="mt-5 title">Settings</h4>
+            <div class="d-flex">
+                <button (click)="changepassword();openDialog(resetpassword)" class="btn btn-outline-primary mr-3">Change Password</button>
+                <!-- <button class="btn btn-outline-primary">Change Email Address</button>-->
+            </div>
+        </div>
+    </div>
+    
 </div>
+
+<ng-template #profileupdated>
+    <div class="text-center">
+        <h3>Your Profile</h3>
+        <p>Your Profile Updated Successfully</p>
+    </div>
+    <div class="form-group modal-action d-flex justify-content-center">
+        <button [mat-dialog-close]="true" mat-raised-button>Okay</button>
+    </div>
+</ng-template>
+<ng-template #resetpassword>
+    <div class="text-center">
+        <h3>Check your Mail</h3>
+        <p>we have sent a reset password link to your email ( <span>{{useremail}}</span> )</p>
+    </div>
+    <div class="form-group modal-action d-flex justify-content-center">
+        <button [mat-dialog-close]="true" mat-raised-button>Okay</button>
+    </div>
+</ng-template>

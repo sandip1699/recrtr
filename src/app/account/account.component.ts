@@ -45,4 +45,8 @@ export class AccountComponent implements OnInit {
     });
   }
 
+  logout() {
+    this.authservice.logout();
+  }
+
 }

@@ -1,21 +1,86 @@
-<div class="loginwrapper">
-    <div class="logo-center">
-        <img src="assets/images/logo.svg" alt="logo" />
-    </div>
-    <div class="text-center">
-        <h2 class="mt-4">Welcome</h2>
-    </div>
-    <div class="formwrapper">
-        <p class="text-center">Log in with your recruitryte account to continue</p>
-        <div class="form-group mb-1">
-            <div class="d-flex justify-content-center">
-                <button mat-raised-button color="primary" class="mr-3" [routerLink]="['/login']">Login
-                    </button>
-            <button mat-raised-button color="primary" [routerLink]="['/signup']">Signup
-                </button>
+<div class="homepage">
+    <!-- header  -->
+    <header class="main-header">
+    <div class="container">
+        <div class="navogations">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="assets/images/logo.svg" alt="logo">
+                </a>
+            </div>
+            <div class="menubar">
+              <nav>
+                <ul>
+                  <li>
+                    <a href="#">Privacy Policy</a>
+                  </li>
+                  <li>
+                    <a href="#">Terms of service</a>
+                  </li>
+                  <li>
+                    <a class="btn btn-primary text-white" [routerLink]="['/login']">Try Now</a>
+                  </li>
+                </ul>
+              </nav>
             </div>
         </div>
-        
     </div>
-   
+</header>
+    <!-- end header  -->
+    
+    <section class="page-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-8 mx-auto">
+                <div class="welcome-titte text-center">
+                    <p class="subtitle">Welcome</p>
+                    <h2>Best AI Writer For Recruiter</h2>
+                    <div id="typed-strings" class="text-pink-gradient gredtitle" style="display: none;">
+                      <p>Compose</p>
+                      <p>Compose Email</p>
+                      <p>Compose LinkedIn InMail</p>
+                      <p>Compose SMS Text</p>
+                      <p>Compose Social Posts</p>
+                    </div>
+                    <div class="text-pink-gradient gredtitle" id="typed" style="white-space:pre;">Compose So</div><span class="typed-cursor" aria-hidden="true">|</span>
+                    <p class="mt-3">Use recruittRyte to easily share job details and attract top talent! Dramatically reduce the time spent drafting outreach messages and boost your efficiency!</p>
+                    <p class="pt-5 pb-2">Try our Recruiting Writing Assistant today!</p>
+                    <form id="formsubmit">
+                      <div class="form-field">
+                        <div class="input-group mb-3">
+                          <input type="text" id="email" name="email" class="form-control form-control-lg" placeholder="Enter Your Email Address">
+                          <div class="input-group-append">
+                            <button class="btn btn-primary btn-lg" type="submit" id="submit">Submit</button>
+                          </div>
+                        </div>
+                        <div id="msg" class="sucesstext"></div>
+                      </div>
+                    </form>
+                </div>
+            </div>
+            <!-- <div class="col-xl-6">
+                <div class="featured-roundsection">
+                    <div class="fileiconwith">
+                        <img src="assets/images/icon-file-text.svg" alt="file" />
+                        <div>Job Description</div>
+                    </div>
+                    <img class="roundcircle" src="assets/images/round_lines.svg" alt="AI Tool" />
+                    <div class="featuretag tag1">Compose Email</div>
+                    <div class="featuretag tag2">Compose LinkedIn InMail</div>
+                    <div class="featuretag tag3">Compose SMS Text</div>
+                    <div class="featuretag tag4">Compose Social Posts</div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</section>
+
+  
+        
+        <!-- Footer -->
+        <footer class="container text-center">
+          <p class="text-muted text-2 mb-2">Copyright © 2023 <a class="fw-600" href="#">recruitRyte</a>. All Rights Reserved.</p>
+        </footer>
+    
+
 </div>

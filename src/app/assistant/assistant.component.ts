@@ -37,16 +37,19 @@ export class AssistantComponent implements OnInit {
   }
   generatedText: any;
   prompt: any;
+  tone: any;
+  is_short: any;
   bot: any;
   note: any;
   composevalue : any;
   finalvalue: any;
   compname: any;
   composes = [
-    {id: 1, name: "Email", inputvalue : "Write an outreach email to send to a candidate using the below information, starts with About Me, mention the company, job role, required years of experience, and key skills, Add a compelling and short subject line, and Set a Casual tone, also mention where the profile was found : "},
-    {id: 2, name: "Job Description", inputvalue : "Job Description for : "},
+    {id: 1, name: "Email", inputvalue : "Write an outreach email to send to a candidate using the below information, starts with About Me, mention the company, job role, required years of experience, and key skills, Add a compelling and short subject line, and Set a Casual tone, two variants, also mention where the profile was found : "},
     {id: 3, name: "LinkedIn InMail", inputvalue : "LinkedIn InMail template for hiring : "},
     {id: 4, name: "SMS Text", inputvalue : "short tweet for hiring : "},
+    {id: 4, name: "Social Post", inputvalue : "short caption for hiring : "},
+    {id: 2, name: "Job Description", inputvalue : "Job Description for : "},
   ]
   selectedcomvalue :any;
   messageDiv : any;
@@ -77,7 +80,7 @@ export class AssistantComponent implements OnInit {
         'removeFormat',
         'toggleEditorMode'
       ]
-    ]
+    ],
   }
   documentDetails: any;
   documenttexts: any;
@@ -95,6 +98,7 @@ export class AssistantComponent implements OnInit {
   useremail: any;
   useruid: any;
   yourplan: any;
+  jobdescoption: boolean = false;
   
 
   constructor(private documentService:DocumentService, private authservice:AuthService, private snackBar: MatSnackBar,db: AngularFireDatabase,private router: Router) {
@@ -146,7 +150,12 @@ export class AssistantComponent implements OnInit {
   selectCompose(value : string) {
      this.selectedcomvalue = value;
      this.compname = this.selectedcomvalue.name;
-     this.doctitle = this.compname
+     this.doctitle = this.compname;
+     if(this.compname === 'Job Description') {
+        this.jobdescoption = true;
+     } else {
+      this.jobdescoption = false;
+     }
      console.log(this.compname);
   }
 
@@ -278,7 +287,7 @@ updateuserdetsils() {
     this.authservice.updateuserInfo(this.curentkey.key, this.userObject)
       .then(() => {
           console.log('updated');
-        }) 
+        }); 
   }
 }
 

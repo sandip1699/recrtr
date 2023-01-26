@@ -9,7 +9,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 // import {MatTabsModule} from '@angular/material/tabs';
 // import {MatExpansionModule} from '@angular/material/expansion';
-// import {MatDialogModule} from '@angular/material/dialog';
+import {MatDialogModule} from '@angular/material/dialog';
 // import {MatSelectModule} from '@angular/material/select';
 import {MatOptionModule, MatRippleModule} from '@angular/material/core';
 import {MatMenuModule} from '@angular/material/menu';
@@ -27,7 +27,7 @@ const data = [
   MatIconModule,
   // MatTabsModule,
   // MatExpansionModule,
-  // MatDialogModule,
+  MatDialogModule,
   // MatSelectModule,
   MatOptionModule,
   MatMenuModule,

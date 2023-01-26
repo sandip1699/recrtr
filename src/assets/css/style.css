@@ -4,12 +4,25 @@
 html body { font-family: 'proxima-nova', sans-serif !important; color: #162027; font-size: 16px; line-height: 1.5; }
 input, textarea {font-family: inherit;}
 .text-center {text-align: center !important;}
-.text-primary {color: #0b65f8 !important;}
+.text-primary {color: #6631F8 !important;}
 .font14 {font-size: 14px !important;}
 .semi-bold { font-weight: 500 !important;}
 form {width: 100%;}
 body a:hover {cursor: pointer !important; text-decoration: none;}
 body h1, body h2, body h3, body h4 {font-weight: 600;}
+body .btn-primary {
+  color: #fff;
+  background-color: #6631F8;
+  border-color: #6631F8; }
+body .btn-primary:hover {  background-color: #5924ec; border-color: #5924ec; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.20); }
+body .btn-outline-primary {
+    color: #6631F8;
+    border-color: #6631F8;
+}
+body .btn-outline-primary:hover {
+  color: #fff;
+  background-color: #6631F8;
+  border-color: #6631F8; }
 /* page layout */
 .applayout {display: flex; background-color: #F3F3F3;}
 .sidebarmain {flex: 0 0 auto; padding: 30px; width: 530px; background-color: #F5F7FD; height: calc(100vh - 60px); overflow: auto; }
@@ -26,7 +39,7 @@ body h1, body h2, body h3, body h4 {font-weight: 600;}
   font-size: 24px;
   background: none;
   cursor: pointer;
-  height: 33px;
+  height: 40px;
   padding: 0px;
   text-align: left;
 }
@@ -56,7 +69,7 @@ body h1, body h2, body h3, body h4 {font-weight: 600;}
 .loader {
   border: 5px solid #f3f3f3;
   border-radius: 50%;
-  border-top: 5px solid #0b65f8;
+  border-top: 5px solid #6631F8;
   width: 100px; margin: auto;
   height: 100px;
   -webkit-animation: spin 2s linear infinite; /* Safari */
@@ -98,7 +111,7 @@ body h1, body h2, body h3, body h4 {font-weight: 600;}
     text-align: center;}
 .alreadyaccount {text-align: center;}
 /* document page  */
-.richeditor .angular-editor-textarea {border: none !important; padding: 30px 3px !important; line-height: 1.6;}
+.richeditor .angular-editor-textarea {border: none !important; padding: 30px 3px !important; resize: none !important; line-height: 1.6;}
 .richeditor .angular-editor-textarea:focus {outline: none;border: none;}
 .richeditor .angular-editor-toolbar {background-color: #fff !important;border: none !important;}
 .richeditor .angular-editor-toolbar-set button {border: none; background-color: #fff;margin-right: 6px;}
@@ -113,6 +126,9 @@ body h1, body h2, body h3, body h4 {font-weight: 600;}
   border-color: #cadcf6 !important;
   color: #3f5bfa;
 }
+.angular-editor-toolbar .angular-editor-toolbar-set .angular-editor-button {
+  border: none !important;
+}
 .no-generation {
   display: flex;
   flex-direction: column;
@@ -122,6 +138,26 @@ body h1, body h2, body h3, body h4 {font-weight: 600;}
   padding: 30px;
   text-align: center;
 }
+.select-generate .mat-radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.mat-radio-group .mat-radio-button {
+  margin-right: 15px;
+}
+.jobform .mat-radio-label-content {
+  min-width: 65px!important;
+}
+body small {font-size: 13px;}
+body .table thead th {
+  font-weight: 300;
+  font-size: 14px;
+  color: #777;
+}
+body .table td a:hover {color: #6631F8 !important;}
+body strong {font-weight: 600;}
+.typed-cursor {display: none !important;}
 @media (min-width:992px) {
   .loginwrapper .logo-center {position: absolute; left: 15px; top: 15px;}
 }
@@ -141,4 +177,9 @@ body h1, body h2, body h3, body h4 {font-weight: 600;}
   .sidebarmain {width: 100%; height: auto; }
   .ressultlayout { width: 100%; height: auto;}
   .formwrapper {max-width: 90%;}
+}
+
+/* Materail color  */
+body .mat-flat-button.mat-primary, body .mat-raised-button.mat-primary, body .mat-fab.mat-primary, body .mat-mini-fab.mat-primary {
+  background-color: #6631F8;
 }

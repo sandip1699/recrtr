@@ -22,6 +22,7 @@ export class CreditsComponent implements OnInit {
   uid: any = localStorage.getItem('currentUser');
   plandurations: any = [{"name": "Montly", "price":"10", "checkedone": true},{"name": "Yearly", "price":"100", "checkedone": false}];
   plantypes = this.plandurations[0];
+  
   paymentHandler: any = null;
   successpayment:boolean = false;
   failurepayment:boolean = false;
@@ -31,6 +32,8 @@ export class CreditsComponent implements OnInit {
     userid: '',
     plan:'',
   }
+  dayss: any;
+  priorDate:any;
 
   constructor(private authservice:AuthService) { }
 
@@ -56,7 +59,6 @@ export class CreditsComponent implements OnInit {
         this.useruid = a.userid;
         this.yourplan = a.plan;
       });
-      console.log(this.countclick);
       this.percenvalue = ((this.countclick/5)*100).toFixed(2)
     });
     this.invokeStripe();
@@ -118,18 +120,36 @@ export class CreditsComponent implements OnInit {
     this.paymentHandler.close();
   }
 
+  expiryDate() {
+    if(this.plantypes.name = "Yearly") {
+      this.dayss = 365;
+    } else {
+      this.dayss = 30;
+    }
+    let dayse = 30;
+    const today = new Date();
+    this.priorDate = new Date(new Date().setDate(today.getDate() + dayse));
+  }
+
   // payment end 
   updateuserdetails() {
     this.userObject.creditCount = 5;
     this.userObject.email = this.useremail;
     this.userObject.userid = this.useruid;
     this.userObject.plan = 'premium';
+    this.expiryDate();
+    const time = this.priorDate;
     if (this.userObject) {
       this.authservice.updateuserInfo(this.curentkey.key, this.userObject)
         .then(() => {
             console.log('updated');
-          })
+          });
+      this.authservice.updateuserInfo(this.curentkey.key, { planExpiry: time});
     }
   }
 
 }
+function moment(date_string: any) {
+  throw new Error('Function not implemented.');
+}
+

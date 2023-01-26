@@ -101,9 +101,8 @@ get userData(): any {
 }
 
   // forgot password
-  forgotPassword(email : string) {
+  restePassword(email : string) {
       this.fireauth.sendPasswordResetEmail(email).then(() => {
-        this.router.navigate(['/verify-email']);
       }, err => {
         alert('Something went wrong');
       })

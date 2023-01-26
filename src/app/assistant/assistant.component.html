@@ -8,21 +8,56 @@
         <select [(ngModel)]="composevalue" name="comse" class="form-control" (change)="selectCompose(composevalue)" placeholder="select">
           <option *ngFor="let c of composes" [ngValue]="c">{{c.name}}</option>
         </select>
+        <span *ngIf="!composevalue" class="placeholder">Please select compose options</span>
       </div>
-      <div class="form-group" *ngIf="compname == 'Email'">
-          <textarea class="form-control" [(ngModel)]="prompt" name="prompt" rows="8" placeholder="Write job Description..."></textarea>
+      <!-- <div class="form-group">
+          <mat-form-field appearance="fill">
+            <mat-label>Compose :</mat-label>
+            <mat-select [(ngModel)]="composevalue" disableOptionCentering name="comse" (change)="selectCompose(composevalue)">
+              <mat-option *ngFor="let c of composes" [value]="c.name">
+                <mat-icon>home</mat-icon> {{c.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div> -->
+      <div *ngIf="composevalue">
+        <div class="form-group" *ngIf="jobdescoption">
+            <input class="form-control" [(ngModel)]="prompt" name="prompt" placeholder="Type Job Role" />
+        </div>
+        <div *ngIf="!jobdescoption">
+        <div class="form-group">
+            <textarea class="form-control" [(ngModel)]="prompt" name="prompt" rows="8" placeholder="Write job Description"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Provide extra context (optional):</label>
+            <input class="form-control" placeholder='Keep it short! Ex: "salary range of 100-120k" ' />
+            <small>recruitRyte will try to include this information in the reply. Max 100 characters</small>
+        </div>
+        <div class="form-group mb-0 pt-3 radioinlinelabel">
+          <div class="d-flex">
+              <h5 class="pr-3">Tone :</h5>
+              <mat-radio-group [(ngModel)]="tone" aria-label="Tone" name="tone">
+                  <mat-radio-button value="Casual">Casual</mat-radio-button>
+                  <mat-radio-button value="Formal">Formal</mat-radio-button>
+                  <mat-radio-button value="Excited">Excited</mat-radio-button>
+                  <mat-radio-button value="Urgent">Urgent</mat-radio-button>
+                </mat-radio-group>
+          </div>
       </div>
-      <div class="form-group" *ngIf="compname === 'Job Description'">
-          <input class="form-control" [(ngModel)]="prompt" name="prompt" placeholder="Type Job Role" />
+      <div class="form-group pt-1 border-top radioinlinelabel">
+          <div class="d-flex pt-2">
+              <h5 class="pr-3">Length :</h5>
+              <mat-radio-group [(ngModel)]="is_short" name="is_short" aria-label="Length">
+                  <mat-radio-button value="short">Short</mat-radio-button>
+                  <mat-radio-button value="medium">Medium</mat-radio-button>
+                  <mat-radio-button value="long">Long</mat-radio-button>
+              </mat-radio-group>
+          </div>
       </div>
-      <div class="form-group" *ngIf="compname === 'LinkedIn InMail'">
-          <textarea class="form-control" [(ngModel)]="prompt" name="prompt" rows="8" placeholder="Write job Description"></textarea>
-      </div>
-      <div class="form-group" *ngIf="compname === 'SMS Text'">
-          <textarea class="form-control" [(ngModel)]="prompt" name="prompt" rows="8" placeholder="Write job Description"></textarea>
-      </div>
-      <div class="form-group" *ngIf="composevalue">
-        <button class="btn btn-primary" type="submit" (click)="composeNow()"> Compose </button>
+    </div>
+        <div class="form-group">
+          <button class="btn btn-block btn-primary" (click)="composeNow()" type="submit"> Compose </button>
+        </div>
       </div>
     </form> 
     <div *ngIf="limitover">
@@ -40,20 +75,28 @@
     </div>
     <div class="resultineditor" *ngIf="newDocument">
       <div class="doctitle">
-        <button *ngIf="!editoractive" class="savebtn" (click)="saveDocument()"><i class="fa fa-angle-left"></i></button>
-        <button *ngIf="editoractive" class="savebtn" (click)="updateDocuments(note)"><i class="fa fa-angle-left"></i></button>
+        <button *ngIf="!editoractive" class="savebtn" (click)="saveDocument()">
+          <img src="assets/images/icons/arrow-left.svg" alt="">
+        </button>
+        <button *ngIf="editoractive" class="savebtn" (click)="updateDocuments(note)">
+          <!-- <i class="fa fa-angle-left"></i> -->
+          <img src="assets/images/icons/arrow-left.svg" alt="">
+        </button>
         <div class="titleinput">
           <input type="text" class="titleonly" [(ngModel)]="docnamed" name="docnamed" />
-          <i class="fa fa-edit"></i>
+          <img class="editicon" src="assets/images/icons/outline-edit.svg" alt="img" />
         </div>
+        <a (click)="updateDocuments(note)" class="save">
+          <img class="editicon" src="assets/images/icons/save.svg" alt="save" />
+        </a>
         <div class="optionsmenu" *ngIf="!limitover">
           <button mat-icon-button [matMenuTriggerFor]="exportmenu">
               <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #exportmenu="matMenu" xPosition="before">
-            <button mat-menu-item (click)="download()"><mat-icon>download</mat-icon>Download (.docx) </button>
-            <button mat-menu-item (click)="downloadpdfFile()"><mat-icon>download</mat-icon>Download (.pdf)</button>
-            <button mat-menu-item (click)="downloadTextFile()"><mat-icon>download</mat-icon>Download (.txt)</button>
+            <button mat-menu-item (click)="download()"><img class="editicon mr-2" src="assets/images/icons/download.svg" alt="save" /> Download (.docx) </button>
+            <button mat-menu-item (click)="downloadpdfFile()"><img class="editicon mr-2" src="assets/images/icons/download.svg" alt="save" />Download (.pdf)</button>
+            <button mat-menu-item (click)="downloadTextFile()"><img class="editicon mr-2" src="assets/images/icons/download.svg" alt="save" />Download (.txt)</button>
           </mat-menu>   
         </div>
       </div>
@@ -87,7 +130,9 @@
     <div class="documentlist" *ngIf="!editoractive && !newDocument">
       <div class="doctitle">
         <span>Documents</span>
-        <a (click)="addnewDocument()" class="with-icon"><mat-icon>description</mat-icon> New Document</a>
+        <a (click)="addnewDocument()" class="with-icon text-dark">
+          <img class="mr-2" src="assets/images/icons/outline-document.svg" alt="img" />
+          New Document</a>
       </div>
       <div class="documentlist mt-4">
         <table class="table">
@@ -100,14 +145,14 @@
             </thead>
             <tbody>
               <tr *ngFor="let item of DocumentData">
-                <td><a (click)="getdocumentDetails(item)"><div class="with-icon"><mat-icon>description</mat-icon> {{item.doctitle}}</div></a></td>
+                <td><a (click)="getdocumentDetails(item)"><div class="with-icon"><img class="mr-3" src="assets/images/icons/outline-document-text.svg" alt="img" /> {{item.doctitle}}</div></a></td>
                 <td><span class="text-muted">{{item.time}}</span></td>
                 <td>
-                  <a class="text-dark mr-2 with-icon" (click)="getdocumentDetails(item)">
-                    <mat-icon>visibility</mat-icon>
+                  <a class="text-dark mr-3 with-icon" (click)="getdocumentDetails(item)">
+                    <img src="assets/images/icons/outline-edit.svg" alt="img" />
                   </a>
                   <a (click)="deleteDocumentfile(item.key)" class="text-danger with-icon">
-                    <mat-icon>delete</mat-icon>
+                    <img src="assets/images/icons/trash.svg" alt="img" />
                   </a>
                 </td>
               </tr>

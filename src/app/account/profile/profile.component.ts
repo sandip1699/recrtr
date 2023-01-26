@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-profile',
@@ -14,11 +15,16 @@ export class ProfileComponent implements OnInit {
   curentuserinfo: any;
   curentkey:any
   useremail: any;
+  username : any;
   useruid: any;
   percenvalue:any;
+  plan:any;
+  profileupdated:any;
+  planexpry:any;
   uid: any = localStorage.getItem('currentUser');
 
-  constructor(private authservice:AuthService) { }
+
+  constructor(private authservice:AuthService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.authservice.getuserInfo().snapshotChanges().pipe(
@@ -39,10 +45,33 @@ export class ProfileComponent implements OnInit {
         this.curentkey = a;
         this.countclick = a.creditCount;
         this.useremail = a.email;
+        this.username = a.username;
         this.useruid = a.userid;
+        this.plan = a.plan;
+        this.planexpry = a.planExpiry;
       });
       
     });
   }
 
+  changeName(templateRef: any) {
+    this.authservice.updateuserInfo(this.curentkey.key, { username: this.username })
+        .then(() => {
+            console.log('updated');
+            this.dialog.open(templateRef, {
+              width: 'auto',
+              autoFocus: false
+            });
+          })
+  }
+  changepassword() {
+    this.authservice.restePassword(this.useremail);
+  }
+
+  openDialog(templateRef: any) {
+    this.dialog.open(templateRef, {
+      width: 'auto',
+      autoFocus: false
+    });
+   }
 }

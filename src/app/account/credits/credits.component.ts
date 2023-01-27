@@ -33,6 +33,7 @@ export class CreditsComponent implements OnInit {
     plan:'',
   }
   dayss: any;
+  planexpry:any;
   priorDate:any;
 
   constructor(private authservice:AuthService) { }
@@ -58,6 +59,7 @@ export class CreditsComponent implements OnInit {
         this.useremail = a.email;
         this.useruid = a.userid;
         this.yourplan = a.plan;
+        this.planexpry = a.planExpiry;
       });
       this.percenvalue = ((this.countclick/5)*100).toFixed(2)
     });

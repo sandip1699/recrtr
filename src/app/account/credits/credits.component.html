@@ -55,6 +55,7 @@
     </div>
     <div *ngIf="yourplan === 'premium'">
         <p>Your Active Plan - <strong>Premium</strong></p>
+        <p *ngIf="planexpry">Plan Expired on {{planexpry}}</p>
     </div>
     <div *ngIf="failurepayment">
         <div class="alert alert-danger">Payment Error</div>

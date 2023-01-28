@@ -20,7 +20,7 @@ export class CreditsComponent implements OnInit {
   yourplan: any;
   percenvalue:any;
   uid: any = localStorage.getItem('currentUser');
-  plandurations: any = [{"name": "Montly", "price":"10", "checkedone": true},{"name": "Yearly", "price":"100", "checkedone": false}];
+  plandurations: any = [{"name": "Month", "price":"9.99", "pricepro":"19.99", "checkedone": true},{"name": "Year", "price":"119", "pricepro":"219", "checkedone": false}];
   plantypes = this.plandurations[0];
   
   paymentHandler: any = null;
@@ -35,6 +35,8 @@ export class CreditsComponent implements OnInit {
   dayss: any;
   planexpry:any;
   priorDate:any;
+  yearly:any;
+  planNames: any;
 
   constructor(private authservice:AuthService) { }
 
@@ -132,13 +134,22 @@ export class CreditsComponent implements OnInit {
     const today = new Date();
     this.priorDate = new Date(new Date().setDate(today.getDate() + dayse));
   }
-
+  getplanName(planname:any) {
+    this.planNames = planname;
+  }
   // payment end 
   updateuserdetails() {
-    this.userObject.creditCount = 5;
+    if(this.planNames = "pro") { 
+      this.userObject.creditCount = 300;
+    } else {
+      this.userObject.creditCount = 100;
+    }
+    if(this.plantypes.name = "Yearly") { 
+      this.userObject.creditCount  = this.userObject.creditCount * 12;
+    }
     this.userObject.email = this.useremail;
     this.userObject.userid = this.useruid;
-    this.userObject.plan = 'premium';
+    this.userObject.plan = this.planNames;
     this.expiryDate();
     const time = this.priorDate;
     if (this.userObject) {
@@ -149,6 +160,7 @@ export class CreditsComponent implements OnInit {
       this.authservice.updateuserInfo(this.curentkey.key, { planExpiry: time});
     }
   }
+  
 
 }
 function moment(date_string: any) {

@@ -16,6 +16,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatTooltipModule} from '@angular/material/tooltip';
 // import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatRadioModule} from '@angular/material/radio';
+// import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 
 

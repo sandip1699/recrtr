@@ -10,45 +10,89 @@
         Credits used - <strong>{{countclick}}</strong>
     </div>
     <div class="plan" *ngIf="!successpayment">
-    <h3>Plan</h3>
-    <div class="pricingplan" *ngIf="yourplan === 'free'">
-        <div class="row">
-            <div class="col-md-6">
-                <p>Active plan: Free</p>
-                <div class="sundcripbeplan">
-                    <h2>Subscribe to Premium</h2>
-                    <p>Plan type : Unlimited</p>
-                    <div class="planprice">${{plantypes.price}}/{{plantypes.name}}</div>
-                    <div class="d-flex form-group">
-                        <label class="mr-3">Payment Type:</label>
-                        <mat-radio-group
-                            aria-labelledby="example-radio-group-label"
-                            class="example-radio-group"
-                            [(ngModel)]="plantypes">
-                            <mat-radio-button class="mr-3" [checked]="planduration.checkedone" *ngFor="let planduration of plandurations;" [value]="planduration">
-                                {{planduration.name}} 
-                            </mat-radio-button>
-                        </mat-radio-group>
-                    </div>
-                    <div class="form-group">
-                        <button (click)="makePayment(plantypes.price)" mat-raised-button color="primary">Checkout</button>
-                    </div>
+        <div class="d-flex mb-3">
+            <h5 class="mb-0 font-weight-bold">Plan</h5>
+            <span class="text-muted ml-2">(Your Active plan: {{yourplan}} )</span>
+        </div>
+    <div class="plalist">
+        <div class="d-flex justify-content-between">
+            <p>Upgrade a plan that’s right for you.</p>
+            <div class="d-flex form-group">
+                <label class="mr-3">Payment Type:</label>
+                <mat-radio-group
+                    aria-labelledby="example-radio-group-label"
+                    class="example-radio-group"
+                    [(ngModel)]="plantypes">
+                    <mat-radio-button class="mr-3" [checked]="planduration.checkedone" *ngFor="let planduration of plandurations;" [value]="planduration">
+                        {{planduration.name}} 
+                    </mat-radio-button>
+                </mat-radio-group>
+            </div>
+        </div>
+        <div class="planwrapper">
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <h3>Basic</h3>
+                    <div class="planprice"><span class="dollars">$</span> {{plantypes.price}}/{{plantypes.name}}</div>
+                </div>
+                <div class="col-md-5">
+                    <ul class="planinfo">
+                        <li>
+                            <i class="fa fa-check-circle"></i>
+                            <span>100 Credits</span>
+                        </li>
+                        <li>
+                            <i class="fa fa-check-circle"></i>
+                            <span>Access 20+ tones</span>
+                        </li>
+                        <li>
+                            <i class="fa fa-check-circle"></i>
+                            <span>Generate 2 vairants</span>
+                        </li>
+                        <li>
+                            <i class="fa fa-check-circle"></i>
+                            <span>Save and Download Unlimited Documents</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <button (click)="makePayment(plantypes.price);getplanName('basic');" mat-raised-button color="primary">Get Started now</button>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="planinfo">
-                    <h4 class="mb-3">Premium plan benefits</h4>
-                    <ul>
-                        <li>Access to premium community</li>
-                        <li>Access 20+ tones</li>
-                        <li>Generate UNLIMITED* characters per month</li>
-                        <li>Generate 2 vairants</li>
-                        <li>Save and Download Unlimited Documents</li>
+        </div>
+        <div class="planwrapper">
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <h3>Pro</h3>
+                    <div class="planprice"><span class="dollars">$</span>{{plantypes.pricepro}}/{{plantypes.name}}</div>
+                </div>
+                <div class="col-md-5">
+                    <ul class="planinfo">
+                        <li>
+                            <i class="fa fa-check-circle"></i>
+                            <span>300 Credits</span>
+                        </li>
+                        <li>
+                            <i class="fa fa-check-circle"></i>
+                            <span>Access 20+ tones</span>
+                        </li>
+                        <li>
+                            <i class="fa fa-check-circle"></i>
+                            <span>Generate 2 vairants</span>
+                        </li>
+                        <li>
+                            <i class="fa fa-check-circle"></i>
+                            <span>Save and Download Unlimited Documents</span>
+                        </li>
                     </ul>
+                </div>
+                <div class="col-md-3">
+                    <button (click)="makePayment(plantypes.pricepro);getplanName('pro');" mat-raised-button color="primary">Get Started now</button>
                 </div>
             </div>
         </div>
     </div>
+   
     </div>
     <div *ngIf="successpayment">
         <div class="alert alert-success">Your Payment is successfull </div>

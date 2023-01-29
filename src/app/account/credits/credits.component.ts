@@ -140,7 +140,7 @@ export class CreditsComponent implements OnInit {
   }
   // payment end 
   updateuserdetails() {
-    this.userObject.creditCount = 100;
+    // this.userObject.creditCount = 100;
     if(this.planNames === "pro") { 
     } else {
       this.userObject.creditCount = 100;

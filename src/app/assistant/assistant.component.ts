@@ -34,7 +34,7 @@ export class AssistantComponent implements OnInit {
     email: '',
     userid: '',
     plan: '',
-    plantype: undefined
+    plantype: ''
   }
   generatedText: any;
   prompt: any;
@@ -100,6 +100,7 @@ export class AssistantComponent implements OnInit {
   useruid: any;
   yourplan: any;
   jobdescoption: boolean = false;
+  yourplantype:any;
   
 
   constructor(private documentService:DocumentService, private authservice:AuthService, private snackBar: MatSnackBar,db: AngularFireDatabase,private router: Router) {
@@ -129,6 +130,7 @@ export class AssistantComponent implements OnInit {
         this.useremail = a.email;
         this.useruid = a.userid;
         this.yourplan = a.plan;
+        this.yourplantype = a.plantype;
         this.checkcount();
       });
       
@@ -284,10 +286,11 @@ updateuserdetsils() {
   this.userObject.email = this.useremail;
   this.userObject.userid = this.useruid;
   this.userObject.plan = this.yourplan;
+  this.userObject.plantype = this.yourplantype;
   if (this.userObject) {
     this.authservice.updateuserInfo(this.curentkey.key, this.userObject)
       .then(() => {
-          console.log('updated');
+          console.log('user updated');
         }); 
   }
 }

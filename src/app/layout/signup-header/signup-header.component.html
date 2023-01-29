@@ -1,0 +1,28 @@
+ <!-- header  -->
+ <header class="main-header">
+    <div class="container">
+        <div class="navogations">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="assets/images/logo.svg" alt="logo">
+                </a>
+            </div>
+            <div class="menubar">
+              <nav>
+                <ul>
+                  <li>
+                    <a [routerLink]="['/privacy-policy']">Privacy Policy</a>
+                  </li>
+                  <li>
+                    <a [routerLink]="['/terms-of-service']" routerLinkActive="router-link-active" >Terms of service</a>
+                  </li>
+                  <li>
+                    <a class="btn btn-primary text-white" [routerLink]="['/login']">Try Now</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+        </div>
+    </div>
+</header>
+    <!-- end header  -->

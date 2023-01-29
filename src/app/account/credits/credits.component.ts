@@ -22,7 +22,6 @@ export class CreditsComponent implements OnInit {
   uid: any = localStorage.getItem('currentUser');
   plandurations: any = [{"name": "Month", "price":"9.99", "pricepro":"19.99", "checkedone": true},{"name": "Year", "price":"119", "pricepro":"219", "checkedone": false}];
   plantypes = this.plandurations[0];
-  
   paymentHandler: any = null;
   successpayment:boolean = false;
   failurepayment:boolean = false;
@@ -30,13 +29,14 @@ export class CreditsComponent implements OnInit {
     creditCount: 0,
     email: '',
     userid: '',
-    plan:'',
+    plan: '',
+    plantype:'',
   }
   dayss: any;
   planexpry:any;
   priorDate:any;
-  yearly:any;
   planNames: any;
+  plantype:any;
 
   constructor(private authservice:AuthService) { }
 
@@ -125,7 +125,7 @@ export class CreditsComponent implements OnInit {
   }
 
   expiryDate() {
-    if(this.plantypes.name = "Yearly") {
+    if(this.userObject.plantype === "Year") {
       this.dayss = 365;
     } else {
       this.dayss = 30;
@@ -135,35 +135,37 @@ export class CreditsComponent implements OnInit {
     this.priorDate = new Date(new Date().setDate(today.getDate() + dayse));
   }
   getplanName(planname:any) {
-    this.planNames = planname;
+    this.userObject.plan = planname;
+    this.userObject.plantype = this.plantypes.name
   }
   // payment end 
   updateuserdetails() {
-    if(this.planNames = "pro") { 
-      this.userObject.creditCount = 300;
+    this.userObject.creditCount = 100;
+    if(this.planNames === "pro") { 
     } else {
       this.userObject.creditCount = 100;
     }
-    if(this.plantypes.name = "Yearly") { 
+    if(this.userObject.plantype === "Year") { 
       this.userObject.creditCount  = this.userObject.creditCount * 12;
+    }
+    if(this.userObject.plantype === "Month") {
+      this.userObject.creditCount  = this.userObject.creditCount * 1;
     }
     this.userObject.email = this.useremail;
     this.userObject.userid = this.useruid;
-    this.userObject.plan = this.planNames;
+    // this.userObject.plan = this.planNames;
     this.expiryDate();
     const time = this.priorDate;
+    const planname = this.userObject.plantype;
     if (this.userObject) {
       this.authservice.updateuserInfo(this.curentkey.key, this.userObject)
         .then(() => {
             console.log('updated');
           });
-      this.authservice.updateuserInfo(this.curentkey.key, { planExpiry: time});
+        this.authservice.updateuserInfo(this.curentkey.key, { plantype: planname});
+        this.authservice.updateuserInfo(this.curentkey.key, { planExpiry: time});
     }
   }
   
-
-}
-function moment(date_string: any) {
-  throw new Error('Function not implemented.');
 }
 

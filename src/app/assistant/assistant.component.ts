@@ -33,7 +33,8 @@ export class AssistantComponent implements OnInit {
     creditCount: 0,
     email: '',
     userid: '',
-    plan:'',
+    plan: '',
+    plantype: undefined
   }
   generatedText: any;
   prompt: any;

@@ -24,7 +24,7 @@
             <h4 class="title">Plan</h4>
             <div class="pricingplan">
                 <p>Active plan: <strong class="text-capitalize">{{plan}}</strong></p>
-                <p *ngIf="planexpry">Plan Expired on {{planexpry}}</p>
+                <p *ngIf="planexpry">Plan Expired on {{planexpry | date:'d'}}/{{ planexpry | date:'MM'}}/{{ planexpry | date:'y'}}</p>
                 <div class="form-group" *ngIf="plan === 'free' ">
                     <button [routerLink]="['/account/credits']" routerLinkActive="router-link-active"  mat-raised-button color="primary">Upgrade Plan</button>
                 </div>

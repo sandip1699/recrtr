@@ -6,7 +6,6 @@ import {MaterialModule} from './material.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HeaderComponent } from "./header/header.component";
 import { AngularFireModule } from '@angular/fire/compat'
 import { environment } from 'src/environments/environment';
 import { AngularEditorModule } from '@kolkov/angular-editor';
@@ -23,10 +22,13 @@ import { CreditsComponent } from './account/credits/credits.component';
 import { HomeComponent } from './home/home.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
+import { HeaderComponent } from './layout/header/header.component';
+import { FooterComponent } from './layout/footer/footer.component';
+import { SignupHeaderComponent } from './layout/signup-header/signup-header.component';
 
 @NgModule({
   declarations: [
-    AppComponent,HeaderComponent, SignupComponent, PrivacyPolicyComponent, TermsOfServiceComponent, LoginComponent, AssistantComponent, VerifyEmailComponent,AccountComponent, ProfileComponent, HomeComponent, CreditsComponent
+    AppComponent,HeaderComponent, FooterComponent, SignupHeaderComponent, SignupComponent, PrivacyPolicyComponent, TermsOfServiceComponent, LoginComponent, AssistantComponent, VerifyEmailComponent,AccountComponent, ProfileComponent, HomeComponent, CreditsComponent
   ],
   imports: [
     BrowserModule,

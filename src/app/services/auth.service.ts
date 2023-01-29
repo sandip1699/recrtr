@@ -55,7 +55,8 @@ export class AuthService {
         email: email,
         userid: res.user?.uid,
         creditCount: 5,
-        plan: "free"
+        plan: "free",
+        plantype:'month',
       })
       this.router.navigate(['/login']);
     }, err => {

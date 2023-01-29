@@ -14,6 +14,7 @@
             <h5 class="mb-0 font-weight-bold">Plan</h5>
             <span class="text-muted ml-2">(Your Active plan: {{yourplan}} )</span>
         </div>
+        <p *ngIf="planexpry">Plan Expired on {{planexpry | date:'d'}}/{{ planexpry | date:'MM'}}/{{ planexpry | date:'y'}}</p>
     <div class="plalist">
         <div class="d-flex justify-content-between">
             <p>Upgrade a plan that’s right for you.</p>
@@ -29,7 +30,7 @@
                 </mat-radio-group>
             </div>
         </div>
-        <div class="planwrapper">
+        <div class="planwrapper" [ngClass]="{dnone: yourplan === 'basic'}">
             <div class="row align-items-center">
                 <div class="col-md-4">
                     <h3>Basic</h3>
@@ -56,11 +57,11 @@
                     </ul>
                 </div>
                 <div class="col-md-3">
-                    <button (click)="makePayment(plantypes.price);getplanName('basic');" mat-raised-button color="primary">Get Started now</button>
+                    <button (click)="makePayment(plantypes.price);getplanName('basic');" mat-raised-button color="primary">Upgrade now</button>
                 </div>
             </div>
         </div>
-        <div class="planwrapper">
+        <div class="planwrapper" [ngClass]="{dnone: yourplan === 'pro'}">
             <div class="row align-items-center">
                 <div class="col-md-4">
                     <h3>Pro</h3>
@@ -87,19 +88,18 @@
                     </ul>
                 </div>
                 <div class="col-md-3">
-                    <button (click)="makePayment(plantypes.pricepro);getplanName('pro');" mat-raised-button color="primary">Get Started now</button>
+                    <button (click)="makePayment(plantypes.pricepro);getplanName('pro');" mat-raised-button color="primary">Upgrade now</button>
                 </div>
             </div>
         </div>
     </div>
-   
     </div>
     <div *ngIf="successpayment">
         <div class="alert alert-success">Your Payment is successfull </div>
     </div>
-    <div *ngIf="yourplan === 'premium'">
-        <p>Your Active Plan - <strong>Premium</strong></p>
-        <p *ngIf="planexpry">Plan Expired on {{planexpry}}</p>
+    <div *ngIf="yourplan">
+        <p>Your Active Plan - <strong>{{yourplan}}</strong></p>
+        <p *ngIf="planexpry">Plan Expired on {{planexpry | date:'d'}}/{{ planexpry | date:'MM'}}/{{ planexpry | date:'y'}}</p>
     </div>
     <div *ngIf="failurepayment">
         <div class="alert alert-danger">Payment Error</div>

@@ -1,0 +1,20 @@
+ul {
+    list-style-type: square;
+    padding-left: 20px;
+}
+ul>li{margin-bottom: 8px;}
+a:hover {cursor: pointer;}
+ul>li>ul {
+    list-style-type: circle;
+}
+
+ul>li>ul>li>ul {
+    list-style-type: square;
+}
+.d-flex > a {margin-bottom: 8px;}
+a {text-decoration: underline;}
+ol li {
+    font-family: Arial;
+}
+b {font-weight: 600;color: #000;}
+.underline {text-decoration: underline;}

@@ -21,10 +21,12 @@ import { AccountComponent } from './account/account.component';
 import { ProfileComponent } from './account/profile/profile.component';
 import { CreditsComponent } from './account/credits/credits.component';
 import { HomeComponent } from './home/home.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
 
 @NgModule({
   declarations: [
-    AppComponent,HeaderComponent, SignupComponent, LoginComponent, AssistantComponent, VerifyEmailComponent,AccountComponent, ProfileComponent, HomeComponent, CreditsComponent
+    AppComponent,HeaderComponent, SignupComponent, PrivacyPolicyComponent, TermsOfServiceComponent, LoginComponent, AssistantComponent, VerifyEmailComponent,AccountComponent, ProfileComponent, HomeComponent, CreditsComponent
   ],
   imports: [
     BrowserModule,

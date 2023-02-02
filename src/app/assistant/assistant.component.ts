@@ -5,16 +5,11 @@ import {DocumentService} from '../services/document.service';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { AuthService } from '../services/auth.service';
 import { map } from 'rxjs/operators';
-// import { ExportAsService, ExportAsConfig, SupportedExtensions } from 'ngx-export-as';
-// import { Document, Packer, Paragraph, TextRun } from 'docx';
 import { asBlob } from 'html-docx-js-typescript';
 import { saveAs } from 'file-saver';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { Observable } from 'rxjs/internal/Observable';
 import { UsersList } from '../model/users';
-import { version } from 'process';
 import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-assistant',
@@ -37,20 +32,20 @@ export class AssistantComponent implements OnInit {
     plantype: ''
   }
   generatedText: any;
-  prompt: any;
-  tone: any;
-  is_short: any;
+  composevalue : string = '';
+  compname: string = '';
+  desc: string = '';
+  tone: string = '';
+  response_length: string = '';
+  user_notes: string = '';
   bot: any;
   note: any;
-  composevalue : any;
   finalvalue: any;
-  compname: any;
   composes = [
-    {id: 1, name: "Email", inputvalue : "Write an outreach email to send to a candidate using the below information, starts with About Me, mention the company, job role, required years of experience, and key skills, Add a compelling and short subject line, and Set a Casual tone, two variants, also mention where the profile was found : "},
-    {id: 3, name: "LinkedIn InMail", inputvalue : "LinkedIn InMail template for hiring : "},
-    {id: 4, name: "SMS Text", inputvalue : "short tweet for hiring : "},
-    {id: 4, name: "Social Post", inputvalue : "short caption for hiring : "},
-    {id: 2, name: "Job Description", inputvalue : "Job Description for : "},
+    {id: 1, name: "Email", info:"Write job Description to Compose Email"},
+    {id: 3, name: "LinkedIn InMail",info:"Write job Description to Compose LinkedIn InMail"},
+    {id: 4, name: "SMS",info:"Write job Description to Compose SMS"},
+    {id: 4, name: "Tweet",info:"Write job Description to Compose Tweet"},
   ]
   selectedcomvalue :any;
   messageDiv : any;
@@ -63,6 +58,7 @@ export class AssistantComponent implements OnInit {
   limitover : boolean = false;
   loader : boolean = false;
   nocomposed : boolean = false;
+  dataLoader:boolean = false;
   DocumentData : any;
   doctitle : any;
   editorConfig: AngularEditorConfig = {
@@ -101,6 +97,9 @@ export class AssistantComponent implements OnInit {
   yourplan: any;
   jobdescoption: boolean = false;
   yourplantype:any;
+  suggestions: any;
+  placehodername: any;
+  
   
 
   constructor(private documentService:DocumentService, private authservice:AuthService, private snackBar: MatSnackBar,db: AngularFireDatabase,private router: Router) {
@@ -146,13 +145,11 @@ export class AssistantComponent implements OnInit {
       }
     }, 400);
   }
-  
-  richtexteditor() {
-    console.log('work');
-  }
-  selectCompose(value : string) {
+
+selectCompose(value : string) {
      this.selectedcomvalue = value;
      this.compname = this.selectedcomvalue.name;
+     this.placehodername = this.selectedcomvalue.info;
      this.doctitle = this.compname;
      if(this.compname === 'Job Description') {
         this.jobdescoption = true;
@@ -160,52 +157,56 @@ export class AssistantComponent implements OnInit {
       this.jobdescoption = false;
      }
      console.log(this.compname);
-  }
+}
 
-
-
-  async composeNow() {
-    //  this.messageDiv = document.getElementById('genratedresult');
+  async composeNownew() {
     this.loader = true;
-    if(this.prompt) {
+    if(this.desc && this.composevalue) {
       this.countclick--;
-      this.finalvalue = this.selectedcomvalue.inputvalue + ' ' + this.prompt;
-      console.log('my input value is - ', this.finalvalue);
-
-      const response = await fetch('https://us-central1-recruitryte-a1750.cloudfunctions.net/composeText', {
+    const response = await fetch('https://us-central1-recruitryte-a1750.cloudfunctions.net/composeText/composertye', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          prompt: this.finalvalue,
+          "text_type": this.compname,
+          "tone": this.tone,
+          "desc": this.desc,
+          "user_notes": this.user_notes,
+          "response_length": this.response_length
         }),
       });
-      // clearInterval(this.loadInterval);
-      //  this.messageDiv.innerHTML = " ";
       if (response.ok) {
         const data = await response.json();
-        this.generatedText = data.bot.trim();
-        if (this.generatedText) {
-          this.generatedTexthtml = this.generatedText.replace(/\n|\r|\r\n/g, "<br/>");
-        }
+        this.suggestions = data.responses;
+       let jointexts = this.suggestions.join('<div class="templatespace"><hr/></div>');
+        setTimeout(() => {
+            this.generatedTexthtml = jointexts.replace(/\n|\r|\r\n/g, "<br/>");
+        }, 100);
+        
         this.nocomposed = false;
         this.loader = false;
         this.docnamed = this.doctitle;
         this.newDocument = true;
         this.updateuserdetsils();
         this.checkcount();
+        this.compname = '';
+        this.desc = '';
+        this.tone = '';
+        this.response_length = '';
+        this.user_notes = '';
       } else {
         const err = await response.text();
         alert(err);
       }
-    } else {
+    }
+    else {
       alert('please fill up form');
       this.loader = false;
     }
   }
 
-  async saveDocument(){
+async saveDocument(){
   this.loader = true;
   this.docObject.id = this.uid,
   this.docObject.doctitle = this.docnamed;
@@ -316,15 +317,15 @@ async downloadTextFile() {
   saveAs(blob, "document.txt");
 }
 async downloadpdfFile() {
-        const pdftext = document.getElementById("divprint");
-        this.mywindow = window.open("", "PRINT", "height=700,width=900");
-        this.mywindow.document.write('<html><head><title>Download document</title><style>body{font-family: system-ui,-apple-system,"Segoe UI";line-height: 1.6;}.angular-editor-wrapper{padding: 30px;}.angular-editor-toolbar {display: none;}</style></head><body>');
-         this.mywindow.document.write(pdftext?.innerHTML);
-         this.mywindow.document.write('</body></html>');
-         this.mywindow.document.close();
-         this.mywindow.focus();
-         this.mywindow.print();
-         return true;
+  const pdftext = document.getElementById("divprint");
+  this.mywindow = window.open("", "PRINT", "height=700,width=900");
+  this.mywindow.document.write('<html><head><title>Download document</title><style>body{font-family: system-ui,-apple-system,"Segoe UI";line-height: 1.6;}.angular-editor-wrapper{padding: 30px;}.angular-editor-toolbar {display: none;}</style></head><body>');
+  this.mywindow.document.write(pdftext?.innerHTML);
+  this.mywindow.document.write('</body></html>');
+  this.mywindow.document.close();
+  this.mywindow.focus();
+  this.mywindow.print();
+  return true;
 }
 
 }

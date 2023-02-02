@@ -4,7 +4,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 // import {MatCardModule} from '@angular/material/card';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-// import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatIconModule} from '@angular/material/icon';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 // import {MatTabsModule} from '@angular/material/tabs';
@@ -24,7 +24,7 @@ const data = [
   MatButtonModule,
   MatInputModule,
   MatSnackBarModule,
-  // MatProgressSpinnerModule,
+  MatProgressSpinnerModule,
   MatIconModule,
   // MatTabsModule,
   // MatExpansionModule,

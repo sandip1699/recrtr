@@ -9,7 +9,8 @@ ul {list-style: none; padding: 0; margin: 0;}
 .logo img {height: 31px;}
 .menubar .account .material-icons {
     font-size: 40px;
-    overflow: visible;
+    overflow: visible;    position: relative;
+    top: 4px;
 }
 .homebtn a {position: relative; top: 3px;}
 .menubar ul > li .mat-icon-button {width: 50px;}

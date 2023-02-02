@@ -10,27 +10,18 @@
         </select>
         <span *ngIf="!composevalue" class="placeholder">Please select compose options</span>
       </div>
-      <!-- <div class="form-group">
-          <mat-form-field appearance="fill">
-            <mat-label>Compose :</mat-label>
-            <mat-select [(ngModel)]="composevalue" disableOptionCentering name="comse" (change)="selectCompose(composevalue)">
-              <mat-option *ngFor="let c of composes" [value]="c.name">
-                <mat-icon>home</mat-icon> {{c.name}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-      </div> -->
+      
       <div *ngIf="composevalue">
         <div class="form-group" *ngIf="jobdescoption">
-            <input class="form-control" [(ngModel)]="prompt" name="prompt" placeholder="Type Job Role" />
+            <input class="form-control" [(ngModel)]="desc" name="desc" placeholder="Type Job Role" />
         </div>
         <div *ngIf="!jobdescoption">
         <div class="form-group">
-            <textarea class="form-control" [(ngModel)]="prompt" name="prompt" rows="8" placeholder="Write job Description"></textarea>
+            <textarea class="form-control" [(ngModel)]="desc" name="desc" rows="8" [placeholder]="placehodername"></textarea>
         </div>
-        <div class="form-group">
+        <div class="form-group extra-context">
             <label>Provide extra context (optional):</label>
-            <input class="form-control" placeholder='Keep it short! Ex: "salary range of 100-120k" ' />
+            <input class="form-control" [(ngModel)]="user_notes" name="user_notes" placeholder='Keep it short! Ex: "salary range of 100-120k" ' />
             <small>recruitRyte will try to include this information in the reply. Max 100 characters</small>
         </div>
         <div class="form-group mb-0 pt-3 radioinlinelabel">
@@ -47,7 +38,7 @@
       <div class="form-group pt-1 border-top radioinlinelabel">
           <div class="d-flex pt-2">
               <h5 class="pr-3">Length :</h5>
-              <mat-radio-group [(ngModel)]="is_short" name="is_short" aria-label="Length">
+              <mat-radio-group [(ngModel)]="response_length" name="response_length" aria-label="Length">
                   <mat-radio-button value="short">Short</mat-radio-button>
                   <mat-radio-button value="medium">Medium</mat-radio-button>
                   <mat-radio-button value="long">Long</mat-radio-button>
@@ -55,8 +46,8 @@
           </div>
       </div>
     </div>
-        <div class="form-group">
-          <button class="btn btn-block btn-primary" (click)="composeNow()" type="submit"> Compose </button>
+        <div class="form-group actionwithloader">
+          <button class="btn btn-block btn-primary" (click)="composeNownew()" type="submit"> Compose <mat-spinner *ngIf="loader" diameter="25" strokeWidth="2"></mat-spinner></button>
         </div>
       </div>
     </form> 
@@ -67,7 +58,27 @@
   </div>
   <div class="ressultlayout">
     <div class="loaderwraper" *ngIf="loader">
-      <div class="loader"></div>
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto;" width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+        <g transform="translate(20 50)">
+        <circle cx="0" cy="0" r="6" fill="#6631F8">
+          <animateTransform attributeName="transform" type="scale" begin="-0.375s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1s" repeatCount="indefinite"></animateTransform>
+        </circle>
+        </g><g transform="translate(40 50)">
+        <circle cx="0" cy="0" r="6" fill="#6631F8">
+          <animateTransform attributeName="transform" type="scale" begin="-0.25s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1s" repeatCount="indefinite"></animateTransform>
+        </circle>
+        </g><g transform="translate(60 50)">
+        <circle cx="0" cy="0" r="6" fill="#6631f8">
+          <animateTransform attributeName="transform" type="scale" begin="-0.125s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1s" repeatCount="indefinite"></animateTransform>
+        </circle>
+        </g><g transform="translate(80 50)">
+        <circle cx="0" cy="0" r="6" fill="#6631F8">
+          <animateTransform attributeName="transform" type="scale" begin="0s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1s" repeatCount="indefinite"></animateTransform>
+        </circle>
+        </g>
+        </svg>
+      <!-- <div class="loader">
+      </div> -->
     </div>
     <div *ngIf="nocomposed" class="no-generation"><img src="assets/images/no-results.png" alt="no result">
       <h2 class="mt-2">No Compose any Document</h2>
@@ -101,8 +112,15 @@
         </div>
       </div>
       <div class="richeditor" id="divprint">
+        
         <angular-editor [(ngModel)]="generatedTexthtml" [config]="editorConfig"></angular-editor>
       </div>
+      <!-- <div *ngFor="let suggestion of suggestions; let i = index">
+        <p class="templname">Template {{i+1}}</p>
+        <div class="templatebox">
+          <p id="temp" [innerHTML]="suggestion"></p>
+      </div>
+      </div> -->
     </div>
     <!-- <div class="documentdetails" *ngIf="editoractive">
       <div class="doctitle">

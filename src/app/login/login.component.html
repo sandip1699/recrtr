@@ -28,9 +28,9 @@
                     <a>Forgot Password ?</a>
                 </div>
             </div>
-            <div class="form-group mb-1">
+            <div class="form-group mb-1 actionwithloader">
                 <button (click)="loginNow()" mat-raised-button color="primary">Login
-                    <mat-icon>arrow_forward</mat-icon></button>
+                    <mat-icon>arrow_forward</mat-icon> <mat-spinner *ngIf="dataLoader" diameter="30" strokeWidth="2"></mat-spinner> </button>
             </div>
        
         <div class="sociamediaoption">

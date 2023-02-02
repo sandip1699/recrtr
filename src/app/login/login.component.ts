@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   errorMsg!: string;
   email : string = '';
   password : string = '';
+  dataLoader:boolean = false;
 
   constructor(public formBuilder: FormBuilder, private router: Router,private authService:AuthService) {}
 
@@ -35,12 +36,15 @@ export class LoginComponent implements OnInit {
   loginNow() {
     if(this.email == '') {
       alert('Please enter email');
+      this.dataLoader = false;
       return;
     }
     if(this.password == '') {
       alert('Please enter password');
+      this.dataLoader = false;
       return;
     }
+    this.dataLoader = true;
       // this.router.navigate(['writing-assistant']);
       this.authService.login(this.email, this.password);
   }

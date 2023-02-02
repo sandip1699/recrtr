@@ -63,7 +63,7 @@ export class CreditsComponent implements OnInit {
         this.yourplan = a.plan;
         this.planexpry = a.planExpiry;
       });
-      this.percenvalue = ((this.countclick/5)*100).toFixed(2)
+      this.percenvalue = ((this.countclick/100)*100).toFixed(2)
     });
     this.invokeStripe();
   }

@@ -14,7 +14,7 @@ body .btn-primary {
   color: #fff;
   background-color: #6631F8;
   border-color: #6631F8; }
-body .btn-primary:hover {  background-color: #5924ec; border-color: #5924ec; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.20); }
+body .btn-primary:hover, body .btn-primary:focus {  background-color: #5924ec; border-color: #5924ec; box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.20); }
 body .btn-outline-primary {
     color: #6631F8;
     border-color: #6631F8;
@@ -279,6 +279,34 @@ ul {list-style: none; padding: 0; margin: 0;}
 .page_title { padding: 40px 0px; background: radial-gradient(19% 51% at 51% 34%, rgba(128, 237, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%), radial-gradient(32% 85% at 100% 38%, rgba(255, 128, 184, 0.15) 0%, rgba(255, 255, 255, 0) 100%), radial-gradient(16% 43% at 0% 56%, rgba(255, 196, 179, 0.2) 0%, rgba(255, 255, 255, 0) 100%), #F7F9FD;}
 .page-content {padding: 30px 0px;}
 .dnone {display: none !important;}
+.angular-editor-textarea { white-space: pre-wrap;}
+.templatespace {
+  margin: 60px 0px;
+  position: relative;
+}
+.templatespace hr {border-top: 2px solid #102558;}
+.templatespace::before {
+  content: "Template 2";
+  position: absolute;
+  background-color: #102558;
+    left: 0;
+    right: 0;
+    width: 100px;
+    padding: 3px;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    margin: auto;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.sidebarmain .btn-block {
+  padding: 10px;
+  font-size: 17px;
+  font-weight: 600; align-items: center;
+  display: flex; justify-content: center;
+}
+.btn .mat-progress-spinner {margin-left: 10px;}
 
 @media(max-width:767px) {
     .roundcircle {width: 220px;
@@ -319,7 +347,21 @@ ul {list-style: none; padding: 0; margin: 0;}
   font-size: 33px;
   height: 53px;
 }
-
+body .form-control {
+  padding: 10px 14px;
+  height: auto;
+}
+.extra-context .form-control {
+  font-size: 14px;
+}
+body .form-control:focus {box-shadow: none; border-color: #6631F8;
+  outline: auto;
+  outline-color: #6631F8;}
+  .actionwithloader .mat-raised-button .mat-button-wrapper {display: flex; align-items: center;} 
+  .actionwithloader .mat-raised-button .mat-progress-spinner { margin-left: 10px;}
+  .actionwithloader .mat-progress-spinner circle, .mat-spinner circle {
+    stroke: #fff;
+  }
 @media (min-width:992px) {
   .loginwrapper .logo-center {position: absolute; left: 15px; top: 15px;}
 }
@@ -344,4 +386,7 @@ ul {list-style: none; padding: 0; margin: 0;}
 /* Materail color  */
 body .mat-flat-button.mat-primary, body .mat-raised-button.mat-primary, body .mat-fab.mat-primary, body .mat-mini-fab.mat-primary {
   background-color: #6631F8;
+}
+body .mat-radio-button {
+  font-family: inherit;
 }

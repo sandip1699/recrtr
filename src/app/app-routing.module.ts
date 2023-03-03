@@ -12,6 +12,7 @@ import { CreditsComponent } from './account/credits/credits.component';
 import { HomeComponent } from './home/home.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
+import {BooleanStringsComponent} from './boolean-strings/boolean-strings.component';
 
 const routes: Routes = [ 
   
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'verify-email', component: VerifyEmailComponent },
+  { path: 'boolean-strings', component: BooleanStringsComponent, canActivate: [AngularFireAuthGuard] },
   { path: 'assistant', component: AssistantComponent, canActivate: [AngularFireAuthGuard] },
   
   {

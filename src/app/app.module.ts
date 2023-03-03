@@ -25,10 +25,10 @@ import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.com
 import { HeaderComponent } from './layout/header/header.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { SignupHeaderComponent } from './layout/signup-header/signup-header.component';
-
+import {BooleanStringsComponent} from './boolean-strings/boolean-strings.component';
 @NgModule({
   declarations: [
-    AppComponent,HeaderComponent, FooterComponent, SignupHeaderComponent, SignupComponent, PrivacyPolicyComponent, TermsOfServiceComponent, LoginComponent, AssistantComponent, VerifyEmailComponent,AccountComponent, ProfileComponent, HomeComponent, CreditsComponent
+    AppComponent,HeaderComponent, FooterComponent, SignupHeaderComponent, SignupComponent, BooleanStringsComponent, PrivacyPolicyComponent, TermsOfServiceComponent, LoginComponent, AssistantComponent, VerifyEmailComponent,AccountComponent, ProfileComponent, HomeComponent, CreditsComponent
   ],
   imports: [
     BrowserModule,

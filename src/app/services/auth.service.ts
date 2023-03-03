@@ -32,7 +32,7 @@ export class AuthService {
     this.fireauth.signInWithEmailAndPassword(email,password).then( res => {
         localStorage.setItem('token','true');
         if(res.user?.emailVerified == true) {
-          this.router.navigate(['assistant']);
+          this.router.navigate(['boolean-strings']);
           localStorage.setItem('currentUser', res.user?.uid);
           this.userId = localStorage.getItem('currentUser'); 
         } else {

@@ -6,7 +6,7 @@ input, textarea {font-family: inherit;}
 .text-center {text-align: center !important;}
 .text-primary {color: #6631F8 !important;}
 .font14 {font-size: 14px !important;}
-.semi-bold { font-weight: 500 !important;}
+body .semi-bold { font-weight: 600 !important;}
 form {width: 100%;}
 body a:hover {cursor: pointer !important; text-decoration: none;}
 body h1, body h2, body h3, body h4 {font-weight: 600;}
@@ -138,6 +138,8 @@ body .btn-outline-primary:hover {
   padding: 30px;
   text-align: center;
 }
+.no-generation img {width: 150px;}
+.exampledemo {padding: 15px;}
 .select-generate .mat-radio-group {
   display: flex;
   flex-wrap: wrap;
@@ -307,6 +309,57 @@ ul {list-style: none; padding: 0; margin: 0;}
   display: flex; justify-content: center;
 }
 .btn .mat-progress-spinner {margin-left: 10px;}
+.kewordcategories {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #dae0ef;
+    background-color: #f8faff;
+    display: inline-block;
+    font-size: 14px;
+    padding: 4px 10px;
+    border-radius: 25px;
+    text-transform: capitalize;
+}
+.booleanslists {list-style: none; padding: 0px;}
+.booleanslists li .boolist {
+    display: block;
+    font-size: 14px;
+    color: #212529;
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    position: relative;
+}
+.seachxbtn a {
+    display: inline-block;
+    margin-right: 13px;
+    font-size: 20px;
+}
+.fa-facebook-square { color: #395199 !important; }
+.fa-linkedin-square { color: #0D62A6 !important; }
+.fa-github-square { color: #000 !important; }
+.fa-xing-square { color: #C0C804 !important; }
+.fa-stack-overflow { color: #E6671B !important; }
+.fa-twitter-square { color: #1EA0DD !important; }
+.seachxbtn a img {
+    width: 18px;
+    margin-top: -3px;
+    border-radius: 3px;
+}
+.doctitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 50px;
+  padding: 5px 30px;
+  padding-right: 20px;
+  border-bottom: 1px solid #ddd;
+  margin-left: -30px;
+  margin-right: -30px;
+}
+.inpudesctitle {font-size: 16px; border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 10px !important; font-weight: 600; white-space: nowrap;width: 100%; text-overflow: ellipsis;overflow: hidden;}
+body pre {font-size: 14px; font-family: inherit; white-space: pre-wrap; border: 1px solid #ddd;padding: 10px;}
+.actionwithloader button {display: flex;}
 
 @media(max-width:767px) {
     .roundcircle {width: 220px;
@@ -362,6 +415,31 @@ body .form-control:focus {box-shadow: none; border-color: #6631F8;
   .actionwithloader .mat-progress-spinner circle, .mat-spinner circle {
     stroke: #fff;
   }
+  .stage{display:flex;justify-content:center;align-items:center;position:relative;padding:32px 0;width:100px;overflow:hidden;text-align:inherit!important}
+.dot-pulse{position:relative;left:-9999px;width:15px;height:15px;border-radius:15px;background-color:#6631F8;color:#6631F8;margin-right:10px;box-shadow:9999px 0 0 -5px;animation:dot-pulse 1.5s infinite linear;animation-delay:.25s}
+.dot-pulse::before,.dot-pulse::after{content:"";display:inline-block;position:absolute;top:0;width:15px;height:15px;margin-right:10px;border-radius:15px;background-color:#6631F8;color:#6631F8}
+.dot-pulse::before{box-shadow:9980px 0 0 -5px;animation:dot-pulse-before 1.5s infinite linear;animation-delay:0}
+.dot-pulse::after{box-shadow:10020px 0 0 -5px;animation:dot-pulse-after 1.5s infinite linear;animation-delay:.5s}
+@keyframes dot-pulse-before {
+0%{box-shadow:9980px 0 0 -5px}
+30%{box-shadow:9980px 0 0 2px}
+60%,100%{box-shadow:9980px 0 0 -5px}
+}
+@keyframes dot-pulse {
+0%{box-shadow:9999px 0 0 -5px}
+30%{box-shadow:9999px 0 0 2px}
+60%,100%{box-shadow:9999px 0 0 -5px}
+}
+@keyframes dot-pulse-after {
+0%{box-shadow:10020px 0 0 -5px}
+30%{box-shadow:10020px 0 0 2px}
+60%,100%{box-shadow:10020px 0 0 -5px}
+}
+.steps {width: auto; border: 1px  solid #666; color: #666; padding: 4px 10px; font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;}
+
 @media (min-width:992px) {
   .loginwrapper .logo-center {position: absolute; left: 15px; top: 15px;}
 }

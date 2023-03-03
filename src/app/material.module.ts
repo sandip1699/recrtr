@@ -17,6 +17,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 // import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatRadioModule} from '@angular/material/radio';
 // import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatChipsModule} from '@angular/material/chips';
 
 
 
@@ -37,6 +38,7 @@ const data = [
   // MatProgressBarModule,
   MatRadioModule,
   MatCheckboxModule,
+  MatChipsModule,
 ];
 
 @NgModule({

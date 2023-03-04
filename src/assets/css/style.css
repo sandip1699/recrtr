@@ -359,8 +359,40 @@ ul {list-style: none; padding: 0; margin: 0;}
 }
 .inpudesctitle {font-size: 16px; border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 10px !important; font-weight: 600; white-space: nowrap;width: 100%; text-overflow: ellipsis;overflow: hidden;}
 body pre {font-size: 14px; font-family: inherit; white-space: pre-wrap; border: 1px solid #ddd;padding: 10px;}
-.actionwithloader button {display: flex;}
-
+.actionwithloader button { display: flex; }
+body button, body .btn {
+    padding: 8px 20px;
+    font-weight: 600;
+    font-size: 17px;
+}
+.booleanslists {list-style: none; padding: 0px;}
+.booleanslists li .boolist {
+    display: block;
+    font-size: 14px;
+    color: #212529;
+    background: #F5F8F9;
+    padding: 20px;padding-right: 45px;
+    border-radius: 5px;
+    position: relative;
+}
+.boolist button {
+  position: absolute;
+  right: 9px;
+  top: 8px;
+  cursor: pointer;
+  z-index: 100;
+  min-width: auto;
+  padding: 5px;
+  line-height: 1;
+}
+body textarea.cdk-textarea-autosize {
+  width: 100%;
+  border: none;
+  overflow: hidden !important;
+  background: transparent;
+  line-height: 1.6;
+  font-size: 14px;
+}
 @media(max-width:767px) {
     .roundcircle {width: 220px;
       height: 220px;}
@@ -439,6 +471,10 @@ body .form-control:focus {box-shadow: none; border-color: #6631F8;
   display: inline-flex;
   align-items: center;
   justify-content: center;}
+.sidebarmain .mat-chip-list-wrapper {
+    max-height: 154px;
+    overflow: auto;
+}
 
 @media (min-width:992px) {
   .loginwrapper .logo-center {position: absolute; left: 15px; top: 15px;}

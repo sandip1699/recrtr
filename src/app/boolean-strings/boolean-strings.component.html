@@ -18,17 +18,24 @@
           </mat-radio-group>
         </div>
       </div>
-      <div class="form-group" *ngIf="!desctype">
-        <textarea class="form-control" [(ngModel)]="desc" name="desc" rows="3" placeholder="Ask to recruitRyte"></textarea>
-      </div>
-      <div class="form-group" *ngIf="desctype">
-        <textarea class="form-control" [(ngModel)]="jobdesc" name="jobdesc" rows="8" placeholder="Paste Job Description"></textarea>
-      </div>
-
+      <div *ngIf="!desctype">
+        <div class="form-group">
+          <textarea class="form-control" [(ngModel)]="desc" name="desc" rows="3" placeholder="Ask to recruitRyte"></textarea>
+        </div>
         <div class="form-group actionwithloader">
-          <button class="btn btn-primary" (click)="genrateKeywords()" type="submit"> generate <mat-spinner
+          <button class="btn btn-primary" (click)="genrateBooleanString()" type="submit"> generate <mat-spinner
               *ngIf="loader" diameter="25" strokeWidth="2"></mat-spinner></button>
         </div>
+      </div>
+      <div *ngIf="desctype">
+        <div class="form-group">
+          <textarea class="form-control" [(ngModel)]="jobdesc" name="jobdesc" rows="8" placeholder="Paste Job Description"></textarea>
+        </div>
+          <div class="form-group actionwithloader">
+            <button class="btn btn-primary" (click)="genrateKeywords()" type="submit"> Next <mat-spinner
+                *ngIf="loader" diameter="25" strokeWidth="2"></mat-spinner></button>
+          </div>
+      </div>
     </form>
     <div *ngIf="!desctype">
       <h5 class="pt-4">Try Example</h5>
@@ -36,28 +43,14 @@
     </div>
     <div *ngIf="desctype">
       <h5 class="pt-4">Try Job Decription</h5>
-      <pre>We are looking for a skilled react.js developer to join our front-end development team. In this role, you will be responsible for developing and implementing user interface components using React.js concepts and workflows such as Redux, Flux, and Webpack. You will also be responsible for profiling and improving front-end performance and documenting our front-end codebase.
-To ensure success as a react.js developer, you should have in-depth knowledge of JavaScript and React concepts, excellent front-end coding skills, and a good understanding of progressive web applications. Ultimately, a top-class react.js developer should be able to design and build modern user interface components to enhance application performance.
-React.js Developer Responsibilities:
-Meeting with the development team to discuss user interface ideas and applications.
-Reviewing application requirements and interface designs.
-Identifying web-based user interactions.
-Developing and implementing highly responsive user interface components using react concepts.
-Writing application interface codes using JavaScript following react.js workflows.
-Troubleshooting interface software and debugging application codes.
-Developing and implementing front-end architecture to support user interface concepts.
-Monitoring and improving front-end performance.
-Documenting application changes and developing updates.
-React.js Developer Requirements:
-Bachelor’s degree in computer science, information technology, or a similar field.
-Previous experience working as a react.js developer.
-In-depth knowledge of JavaScript, CSS, HTML, and front-end languages.
-Knowledge of REACT tools including React.js, Webpack, Enzyme, Redux, and Flux.
-Experience with user interface design.
-Knowledge of performance testing frameworks including Mocha and Jest.
-Experience with browser-based debugging and performance testing software.
-Excellent troubleshooting skills.
-Good project management skills.
+      <pre>.NET Developer 
+        We would like Azure experience but it isn't 100% required 
+        .NET 6 / 7 - anything .NET core 
+        Required Knowledge: 
+        C# expertise 
+        2+ years of .net 5+/.net core 
+        Knowledge of Microservice based architecture patterns 
+        Knowledge of RESTful API design    
       </pre>
     </div>
     </div>
@@ -114,11 +107,15 @@ Good project management skills.
               </mat-chip-list>
             </mat-form-field>
           </div>
-          <div class="form-group d-flex">
-            <button class="btn btn-outline-secondary mr-3">Back</button>
-            <button class="btn btn-primary" type="submit"> generate <mat-spinner
-              *ngIf="loader" diameter="25" strokeWidth="2"></mat-spinner>
-            </button>
+          <div class="d-flex">
+            <div class="form-group actionwithloader">
+              <button class="btn btn-outline-secondary mr-3">Back</button>
+            </div>
+            <div class="form-group actionwithloader">
+              <button class="btn btn-primary" type="submit"> generate <mat-spinner
+                *ngIf="loader" diameter="25" strokeWidth="2"></mat-spinner>
+              </button>
+            </div>
           </div>
         </form>
     </div>
@@ -135,18 +132,29 @@ Good project management skills.
     </div>
     <div class="resultineditor" *ngIf="keywordResult">
       <div class="doctitle">
-          <p class="mb-0">Generated Keywords based on Job Description</p>
+          <p class="mb-0" *ngIf="!booleanstringsection">Generated Keywords based on Job Description</p>
+          <p class="mb-0" *ngIf="booleanstringsection">Generated Boolean strings based on Job description and Skills</p>
       </div>
       <p class="mb-0 mt-3">Boolean Strings For :</p>
       <h4 class="semi-bold inpudesctitle">{{descvalue}}</h4>
-      <h4 class="pt-4 mb-3">Keywords</h4>
-      <div class="job-keyword">
-        <div *ngFor="let k of keys">
-            <p class="text-primary mb-2 mt-0"> {{k}}</p>
-            <span class="kewordcategories"
-                *ngFor="let value of keywordsvalue[k]">{{value}}</span>
+      <div *ngIf="!booleanstringsection">
+        <h4 class="pt-4 mb-3">Keywords</h4>
+        <div class="job-keyword">
+           <span class="kewordcategories"  *ngFor="let value of keywordsvalue">{{value.text}}</span>
         </div>
-    </div>
+      </div>
+      <div *ngIf="booleanstringsection">
+        <ul class="booleanslists">
+          <li class="mb-3" *ngFor="let booleanss of booleanlist; let i = index; trackBy: trackBy">
+              <div class="boolist">
+                <button mat-button (click)="copyToClipboard(booleanss)">
+                    <mat-icon>content_copy</mat-icon> 
+                </button>
+                  <textarea [(ngModel)]="booleanlist[i]" cdkTextareaAutosize [ngModelOptions]="{standalone: true}"></textarea>
+              </div>
+          </li>
+      </ul>
+      </div>
 
     </div>
 
